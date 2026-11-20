@@ -1,0 +1,15 @@
+ollama create keyword-extractor -f Keyword-Extractor-Model.md
+
+
+curl -s https://llm.radar-service.eu/ollama/api/chat   -H 'Content-Type: application/json'   -d '{
+"model": "keyword-extractor",
+"think": false,
+"stream": false,
+"format": "json",
+"messages": [
+{
+"role": "user",
+"content": "Keratosis pilaris ist eine Erkrankung der Haarfollikel, die bis zu 80% der Bevölkerung betrifft. I.d.R. manifestiert sich die Verhornungsstörung bereits im Kindesalter, erreicht im Jugend- und frühen Erwachsenenenalter die klinisch stärkste Ausprägung und eine spontane Besserung mit zunehmendem Lebensalter. Der Leidensdruck der Betroffenen ist individuell teilweise sehr hoch. Die charakteristischen kleinen Papeln entstehen, indem überschüssige Keratinozyten die Haarfollikel verstopfen und somit den Austritt des Haars verhindern. Je nach Unterform, kann eine unterschiedlich stark ausgeprägte begleitende Entzündungsreaktion vorhanden sein. Prädilektionsstellen sind die Außenseiten der Oberarme, der Oberschenkel, das Gesäß und das Gesicht. Die Ursachen der Keratosis pilaris sind nur unzureichend geklärt. Bei etwa 40% der Betroffenen liegt eine erbliche Komponente vor. Häufig ist dabei das Strukturprotein Filaggrin betroffen, was eine Barrierestörung als Ursache der Hyperkeratose und ausgeprägten Hauttrockenheit plausibel macht. Die klinische Variabilität der Krankheit ist groß und milde Formen sind als physiologische Normvariante zu betrachten. Sofern keine subjektiven Beschwerden vorliegen, ist keine Therapie notwendig. Grundsätzlich empfiehlt sich eine konsequente Hautpflege mit hypoallergenen, rückfettenden Pflegeprodukten, die die Hautbarriere stärken und die Haut mit Feuchtigkeit versorgen. Bei klinisch schwereren Verlaufsformen mit psychischer Belastung der Betroffenen ist eine topische Therapie mit keratolytischen und je nach Entzündungsintensität antientzündlichen Wirkstoffen angeraten. Topische Vitamin-A-Säure-Zubereitungen und Laserbehandlungen sind weitere Therapieoptionen.Die Keratosis pilaris ist eine follikuläre Hyperkeratose, die hauptsächlich bei Jugendlichen und jungen Erwachsenen auftritt und aufgrund der rauen Hautstellen umgangssprachlich auch als „Reibeisenhaut“ bezeichnet wird. Charakteristisch sind kleine, follikulozentrische, keratotische Papeln mit je nach Unterform der Erkrankung mehr oder weniger ausgeprägtem Erythem [1]. Die Papeln entstehen, weil infolge der Verhornungsstörung übermäßig gebildete Keratinozyten die Haarfollikel verstopfen und den Austritt des Haars behindern. Im Innern der Papeln findet sich deshalb meist ein eingerolltes Haar, das zu der Entzündungsreaktion beiträgt. Die Papeln manifestieren sich v.a. an den Außenseiten von Oberarm und Oberschenkel sowie am Gesäß. Viele Betroffene erleben im Winter eine Verschlechterung und im Sommer eine Verbesserung ihrer Beschwerden"
+}
+]
+}' | jq -r '.message.content'
