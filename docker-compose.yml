@@ -1,0 +1,29 @@
+# Runs the jar built by Maven in a container:
+#   mvn package
+#   docker compose up -d --build
+# The page is then available at http://localhost:8080/api/keywords/extract (port: HOST_PORT).
+services:
+  radar-llm-keyword-search:
+    build: .
+    image: radar-llm-keyword-search
+    container_name: radar-llm-keyword-search
+    restart: unless-stopped
+    ports:
+      - "${HOST_PORT:-8080}:8080"
+    # Passed through from the shell or a .env file only if set there; otherwise the defaults
+    # from application.properties apply. An empty RADAR_HTTP_PROXY_HOST disables the proxy.
+    environment:
+      - RADAR_HTTP_PROXY_HOST
+      - RADAR_HTTP_PROXY_PORT
+      - RADAR_OLLAMA_BASE_URL
+      - RADAR_OLLAMA_MODEL
+      - RADAR_OLLAMA_MAX_KEYWORDS
+      - RADAR_TIB_ONTOLOGIES
+      - RADAR_MATCHING_MAX_CONCURRENT_REQUESTS
+      - JAVA_TOOL_OPTIONS
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "-o", "/dev/null", "http://localhost:8080/api/keywords/extract"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3

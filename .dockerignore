@@ -1,0 +1,3 @@
+# Only the jar built by Maven is needed in the build context.
+*
+!target/radar-llm-keyword-search-*.jar
