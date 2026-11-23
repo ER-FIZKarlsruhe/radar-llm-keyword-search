@@ -1,11 +1,6 @@
-# Runs the jar built by Maven in a container:
-#   mvn package
-#   docker compose up -d --build
-# The page is then available at http://localhost:8080/api/keywords/extract (port: HOST_PORT).
 services:
   radar-llm-keyword-search:
-    build: .
-    image: radar-llm-keyword-search
+    image: radar-llm-keyword-search:${RADAR_LLM_KEYWORD_SEARCH_VERSION}
     container_name: radar-llm-keyword-search
     restart: unless-stopped
     ports:
