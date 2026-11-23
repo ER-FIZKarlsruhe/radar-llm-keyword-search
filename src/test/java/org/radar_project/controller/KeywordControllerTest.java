@@ -22,7 +22,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -39,16 +42,40 @@ class KeywordControllerTest {
     private KeywordMatchService keywordMatchService;
 
     @Test
+    void extractPageReturnsHtmlForm() throws Exception {
+        mockMvc.perform(get("/api/keywords/extract").accept(MediaType.TEXT_HTML))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(content().string(containsString("<textarea")))
+                .andExpect(content().string(containsString("fetch(\"extract\"")))
+                .andExpect(content().string(containsString("id=\"match\"")))
+                .andExpect(content().string(containsString("fetch(\"match\"")));
+        verifyNoInteractions(ollamaService, keywordMatchService);
+    }
+
+    @Test
     void extractReturnsKeywords() throws Exception {
-        when(ollamaService.extract("Ein Text", 5))
+        when(ollamaService.extract("Ein Text"))
                 .thenReturn(new ExtractionResult("de", List.of(new Keyword("Text", "direkt"))));
 
         mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"text\": \"Ein Text\", \"maxKeywords\": 5}"))
+                        .content("{\"text\": \"Ein Text\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.language").value("de"))
                 .andExpect(jsonPath("$.keywords[0].term").value("Text"))
                 .andExpect(jsonPath("$.keywords[0].type").value("direkt"));
+    }
+
+    @Test
+    void extractIgnoresLegacyMaxKeywordsParameter() throws Exception {
+        when(ollamaService.extract("Ein Text"))
+                .thenReturn(new ExtractionResult("de", List.of(new Keyword("Text", "direkt"))));
+
+        mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"text\": \"Ein Text\", \"maxKeywords\": 1}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.keywords[0].term").value("Text"));
+        verify(ollamaService).extract("Ein Text");
     }
 
     @Test
@@ -61,7 +88,7 @@ class KeywordControllerTest {
 
     @Test
     void extractMapsOllamaFailureToBadGateway() throws Exception {
-        when(ollamaService.extract("Text", null)).thenThrow(new ExternalServiceException("Ollama request failed"));
+        when(ollamaService.extract("Text")).thenThrow(new ExternalServiceException("Ollama request failed"));
 
         mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
                         .content("{\"text\": \"Text\"}"))

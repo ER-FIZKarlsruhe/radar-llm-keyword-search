@@ -6,7 +6,6 @@ import org.radar_project.model.ExtractionResult;
 import org.radar_project.model.Keyword;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
@@ -48,10 +47,12 @@ public class OllamaService {
     }
 
     /**
-     * @param maxKeywords optional upper bound of returned keywords
+     * Extracts keywords from the given text, limited to {@code radar.ollama.max-keywords} entries.
+     *
+     * @param text the text to extract keywords from
      * @throws ExternalServiceException if Ollama fails or returns no valid keyword JSON
      */
-    public ExtractionResult extract(String text, @Nullable Integer maxKeywords) {
+    public ExtractionResult extract(String text) {
         String content = chat(text);
         ExtractionResult result;
         try {
@@ -61,7 +62,7 @@ public class OllamaService {
         }
         List<Keyword> keywords = result.keywords().stream()
                 .filter(keyword -> keyword != null && keyword.term() != null && !keyword.term().isBlank())
-                .limit(maxKeywords == null ? Long.MAX_VALUE : maxKeywords)
+                .limit(properties.maxKeywords())
                 .toList();
         return new ExtractionResult(result.language(), keywords);
     }

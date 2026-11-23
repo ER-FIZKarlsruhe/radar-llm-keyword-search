@@ -28,11 +28,15 @@ class OllamaServiceTest {
 
     @BeforeEach
     void setUp() {
+        createService(10);
+    }
+
+    private void createService(int maxKeywords) {
         RestClient.Builder builder = RestClient.builder().baseUrl("https://ollama.test/ollama");
         server = MockRestServiceServer.bindTo(builder).build();
         ollamaService = new OllamaService(builder.build(),
                 new OllamaProperties("https://ollama.test/ollama", "keyword-extractor",
-                        Duration.ofSeconds(1), Duration.ofSeconds(1)),
+                        Duration.ofSeconds(1), Duration.ofSeconds(1), maxKeywords),
                 JsonMapper.builder().build());
     }
 
@@ -50,7 +54,7 @@ class OllamaServiceTest {
                           {"term": " ", "type": "direkt"},
                           {"term": "Katalyse", "type": "erschlossen"}]}"""));
 
-        ExtractionResult result = ollamaService.extract("Ein Text über Zeolithe.", null);
+        ExtractionResult result = ollamaService.extract("Ein Text über Zeolithe.");
 
         assertThat(result.language()).isEqualTo("de");
         assertThat(result.keywords()).containsExactly(
@@ -59,13 +63,14 @@ class OllamaServiceTest {
     }
 
     @Test
-    void limitsNumberOfKeywords() {
+    void limitsNumberOfKeywordsToConfiguredMaximum() {
+        createService(1);
         server.expect(requestTo("https://ollama.test/ollama/api/chat"))
                 .andRespond(chatResponse("""
                         {"language": "de", "keywords": [
                           {"term": "A", "type": "direkt"}, {"term": "B", "type": "direkt"}]}"""));
 
-        assertThat(ollamaService.extract("Text", 1).keywords()).extracting(Keyword::term).containsExactly("A");
+        assertThat(ollamaService.extract("Text").keywords()).extracting(Keyword::term).containsExactly("A");
     }
 
     @Test
@@ -73,7 +78,7 @@ class OllamaServiceTest {
         server.expect(requestTo("https://ollama.test/ollama/api/chat"))
                 .andRespond(chatResponse("keine JSON-Antwort"));
 
-        assertThatThrownBy(() -> ollamaService.extract("Text", null))
+        assertThatThrownBy(() -> ollamaService.extract("Text"))
                 .isInstanceOf(ExternalServiceException.class)
                 .hasMessage("Ollama returned invalid keyword JSON");
     }
@@ -82,7 +87,7 @@ class OllamaServiceTest {
     void wrapsServerErrors() {
         server.expect(requestTo("https://ollama.test/ollama/api/chat")).andRespond(withServerError());
 
-        assertThatThrownBy(() -> ollamaService.extract("Text", null))
+        assertThatThrownBy(() -> ollamaService.extract("Text"))
                 .isInstanceOf(ExternalServiceException.class)
                 .hasMessage("Ollama request failed");
     }
