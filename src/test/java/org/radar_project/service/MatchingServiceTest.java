@@ -29,6 +29,8 @@ class MatchingServiceTest {
                 MatchType.EXACT, MatchType.ALTERNATIVE_LABEL,
                 MatchType.NORMALIZED, MatchType.NORMALIZED_ALTERNATIVE_LABEL);
         assertThat(matches).extracting(NormdataMatch::score).containsExactly(1.0, 0.9, 0.8, 0.7);
+        assertThat(matches).extracting(NormdataMatch::matchedLabel).containsExactly(
+                "Keratosis pilaris", "Keratosis pilaris", "Keratosis-Pilaris", "keratosis  pilaris");
     }
 
     @Test

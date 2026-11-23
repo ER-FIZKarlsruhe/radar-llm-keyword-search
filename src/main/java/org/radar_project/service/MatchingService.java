@@ -29,30 +29,31 @@ public class MatchingService {
     public List<NormdataMatch> match(String term, List<NormdataCandidate> candidates) {
         Set<String> seenUris = new HashSet<>();
         return candidates.stream()
-                .flatMap(candidate -> matchType(term, candidate)
-                        .map(matchType -> toMatch(candidate, matchType))
+                .flatMap(candidate -> labelMatch(term, candidate)
+                        .map(labelMatch -> toMatch(candidate, labelMatch))
                         .stream())
                 .sorted(Comparator.comparingDouble(NormdataMatch::score).reversed())
                 .filter(match -> match.uri() == null || seenUris.add(match.uri()))
                 .toList();
     }
 
-    Optional<MatchType> matchType(String term, NormdataCandidate candidate) {
+    /** How the term matches the candidate and which of its labels matched, if any. */
+    Optional<LabelMatch> labelMatch(String term, NormdataCandidate candidate) {
         if (term.equals(candidate.label())) {
-            return Optional.of(MatchType.EXACT);
+            return Optional.of(new LabelMatch(MatchType.EXACT, candidate.label()));
         }
         if (candidate.alternativeLabels().contains(term)) {
-            return Optional.of(MatchType.ALTERNATIVE_LABEL);
+            return Optional.of(new LabelMatch(MatchType.ALTERNATIVE_LABEL, term));
         }
         String normalizedTerm = normalize(term);
         if (candidate.label() != null && normalizedTerm.equals(normalize(candidate.label()))) {
-            return Optional.of(MatchType.NORMALIZED);
+            return Optional.of(new LabelMatch(MatchType.NORMALIZED, candidate.label()));
         }
-        boolean alternativeMatches = candidate.alternativeLabels().stream()
+        return candidate.alternativeLabels().stream()
                 .filter(Objects::nonNull)
-                .map(MatchingService::normalize)
-                .anyMatch(normalizedTerm::equals);
-        return alternativeMatches ? Optional.of(MatchType.NORMALIZED_ALTERNATIVE_LABEL) : Optional.empty();
+                .filter(alternative -> normalizedTerm.equals(normalize(alternative)))
+                .findFirst()
+                .map(alternative -> new LabelMatch(MatchType.NORMALIZED_ALTERNATIVE_LABEL, alternative));
     }
 
     /** Ignores case, Unicode compatibility forms, hyphens, underscores, whitespace and qualifiers. */
@@ -63,8 +64,12 @@ public class MatchingService {
         return normalized.strip().toLowerCase(Locale.ROOT);
     }
 
-    private static NormdataMatch toMatch(NormdataCandidate candidate, MatchType matchType) {
+    private static NormdataMatch toMatch(NormdataCandidate candidate, LabelMatch labelMatch) {
         return new NormdataMatch(candidate.source(), candidate.id(), candidate.uri(), candidate.label(),
-                candidate.vocabulary(), candidate.types(), matchType, matchType.score());
+                labelMatch.label(), candidate.vocabulary(), candidate.types(), labelMatch.type(),
+                labelMatch.type().score());
+    }
+
+    record LabelMatch(MatchType type, String label) {
     }
 }

@@ -3,7 +3,6 @@ package org.radar_project.service;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.radar_project.config.OllamaProperties;
 import org.radar_project.model.ExtractionResult;
-import org.radar_project.model.Keyword;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,8 @@ import org.springframework.web.client.RestClientException;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.json.JsonMapper;
 
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,20 +22,30 @@ import java.util.Map;
 @Service
 public class OllamaService {
 
-    /** JSON schema passed as {@code format} so that Ollama constrains the model output. */
-    private static final Map<String, Object> RESPONSE_SCHEMA = Map.of(
-            "type", "object",
-            "properties", Map.of(
-                    "language", Map.of("type", "string"),
-                    "keywords", Map.of(
-                            "type", "array",
-                            "items", Map.of(
-                                    "type", "object",
-                                    "properties", Map.of(
-                                            "term", Map.of("type", "string"),
-                                            "type", Map.of("type", "string", "enum", List.of("direkt", "erschlossen"))),
-                                    "required", List.of("term", "type")))),
-            "required", List.of("language", "keywords"));
+    /**
+     * JSON schema passed as {@code format} so that Ollama constrains the model output.
+     * Ollama generates the fields in schema order, so the property order matters: "language" must
+     * come before "keywords", otherwise the model may emit keywords before it has determined the
+     * language of the text. {@code Map.of} has no stable iteration order (it varies between JVM
+     * starts), hence the ordered maps.
+     */
+    private static final Map<String, Object> RESPONSE_SCHEMA = createResponseSchema();
+
+    private static Map<String, Object> createResponseSchema() {
+        Map<String, Object> keywords = new LinkedHashMap<>();
+        keywords.put("type", "array");
+        keywords.put("items", Map.of("type", "string"));
+
+        Map<String, Object> properties = new LinkedHashMap<>();
+        properties.put("language", Map.of("type", "string"));
+        properties.put("keywords", keywords);
+
+        Map<String, Object> schema = new LinkedHashMap<>();
+        schema.put("type", "object");
+        schema.put("properties", properties);
+        schema.put("required", List.of("language", "keywords"));
+        return Collections.unmodifiableMap(schema);
+    }
 
     private final RestClient restClient;
     private final OllamaProperties properties;
@@ -60,8 +71,8 @@ public class OllamaService {
         } catch (JacksonException e) {
             throw new ExternalServiceException("Ollama returned invalid keyword JSON", e);
         }
-        List<Keyword> keywords = result.keywords().stream()
-                .filter(keyword -> keyword != null && keyword.term() != null && !keyword.term().isBlank())
+        List<String> keywords = result.keywords().stream()
+                .filter(keyword -> keyword != null && !keyword.isBlank())
                 .limit(properties.maxKeywords())
                 .toList();
         return new ExtractionResult(result.language(), keywords);

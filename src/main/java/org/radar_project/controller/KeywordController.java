@@ -1,12 +1,10 @@
 package org.radar_project.controller;
 
 import jakarta.validation.Valid;
+import org.jspecify.annotations.Nullable;
 import org.radar_project.model.ExtractRequest;
-import org.radar_project.model.ExtractionResult;
-import org.radar_project.model.MatchRequest;
-import org.radar_project.model.MatchResponse;
-import org.radar_project.service.KeywordMatchService;
-import org.radar_project.service.OllamaService;
+import org.radar_project.model.KeywordIri;
+import org.radar_project.service.KeywordExtractionService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -16,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 /**
- * Endpoints for keyword extraction and normdata matching. The response of {@code /extract}
- * can be posted unchanged to {@code /match}.
+ * Keyword extraction with optional normdata lookup, in the response format of radar-keyword-search's
+ * {@code /extract-iris}.
  */
 @RestController
 @RequestMapping("/api/keywords")
@@ -26,12 +26,10 @@ public class KeywordController {
 
     private static final Resource EXTRACT_PAGE = new ClassPathResource("web/extract.html");
 
-    private final OllamaService ollamaService;
-    private final KeywordMatchService keywordMatchService;
+    private final KeywordExtractionService keywordExtractionService;
 
-    public KeywordController(OllamaService ollamaService, KeywordMatchService keywordMatchService) {
-        this.ollamaService = ollamaService;
-        this.keywordMatchService = keywordMatchService;
+    public KeywordController(KeywordExtractionService keywordExtractionService) {
+        this.keywordExtractionService = keywordExtractionService;
     }
 
     /**
@@ -42,13 +40,11 @@ public class KeywordController {
         return EXTRACT_PAGE;
     }
 
+    /**
+     * Returns the best match per keyword ({@code null} if none), in the order the model returned the keywords.
+     */
     @PostMapping("/extract")
-    public ExtractionResult extract(@Valid @RequestBody ExtractRequest request) {
-        return ollamaService.extract(request.text());
-    }
-
-    @PostMapping("/match")
-    public MatchResponse match(@Valid @RequestBody MatchRequest request) {
-        return keywordMatchService.match(request);
+    public Map<String, @Nullable KeywordIri> extract(@Valid @RequestBody ExtractRequest request) {
+        return keywordExtractionService.extract(request);
     }
 }

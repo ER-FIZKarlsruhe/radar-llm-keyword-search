@@ -1,28 +1,27 @@
 package org.radar_project.controller;
 
 import org.junit.jupiter.api.Test;
-import org.radar_project.model.ExtractionResult;
-import org.radar_project.model.Keyword;
-import org.radar_project.model.MatchRequest;
-import org.radar_project.model.MatchResponse;
+import org.radar_project.model.ExtractRequest;
+import org.radar_project.model.KeywordIri;
 import org.radar_project.model.NormdataSource;
+import org.radar_project.model.Terminology;
 import org.radar_project.service.ExternalServiceException;
-import org.radar_project.service.KeywordMatchService;
-import org.radar_project.service.OllamaService;
+import org.radar_project.service.KeywordExtractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-import java.util.Set;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -36,10 +35,7 @@ class KeywordControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    private OllamaService ollamaService;
-
-    @MockitoBean
-    private KeywordMatchService keywordMatchService;
+    private KeywordExtractionService keywordExtractionService;
 
     @Test
     void extractPageReturnsHtmlForm() throws Exception {
@@ -48,47 +44,82 @@ class KeywordControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(content().string(containsString("<textarea")))
                 .andExpect(content().string(containsString("fetch(\"extract\"")))
-                .andExpect(content().string(containsString("id=\"match\"")))
-                .andExpect(content().string(containsString("fetch(\"match\"")));
-        verifyNoInteractions(ollamaService, keywordMatchService);
+                .andExpect(content().string(containsString("name=\"terminology\"")))
+                .andExpect(content().string(not(containsString("fetch(\"match\""))));
+        verifyNoInteractions(keywordExtractionService);
     }
 
     @Test
-    void extractReturnsKeywords() throws Exception {
-        when(ollamaService.extract("Ein Text"))
-                .thenReturn(new ExtractionResult("de", List.of(new Keyword("Text", "direkt"))));
+    void extractReturnsKeywordMapInSnakeCaseIncludingNullValues() throws Exception {
+        Map<String, KeywordIri> result = new LinkedHashMap<>();
+        result.put("Zeolith", new KeywordIri("https://d-nb.info/gnd/4190779-6", "Zeolith", "Zeolith", null,
+                NormdataSource.GND, "GND", "https://d-nb.info/gnd/", "4190779-6"));
+        result.put("Katalyse", null);
+        when(keywordExtractionService.extract(new ExtractRequest("Ein Text", Terminology.GND))).thenReturn(result);
+
+        mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"text\": \"Ein Text\", \"terminology\": \"gnd\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {"Zeolith": {"iri": "https://d-nb.info/gnd/4190779-6", "label": "Zeolith",
+                                     "best_term": "Zeolith", "ontology_name": null, "source": "gnd",
+                                     "keyword_scheme": "GND", "scheme_uri": "https://d-nb.info/gnd/",
+                                     "classification_code": "4190779-6"},
+                         "Katalyse": null}""", true))
+                .andExpect(content().string(containsString("\"Katalyse\":null")));
+    }
+
+    @Test
+    void extractDefaultsTerminologyToNone() throws Exception {
+        when(keywordExtractionService.extract(any())).thenReturn(Map.of());
 
         mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
                         .content("{\"text\": \"Ein Text\"}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.language").value("de"))
-                .andExpect(jsonPath("$.keywords[0].term").value("Text"))
-                .andExpect(jsonPath("$.keywords[0].type").value("direkt"));
+                .andExpect(status().isOk());
+        verify(keywordExtractionService).extract(new ExtractRequest("Ein Text", Terminology.NONE));
+    }
+
+    @Test
+    void extractAcceptsAllTerminologies() throws Exception {
+        when(keywordExtractionService.extract(any())).thenReturn(Map.of());
+
+        for (Terminology terminology : Terminology.values()) {
+            mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
+                            .content("{\"text\": \"Ein Text\", \"terminology\": \"" + terminology.value() + "\"}"))
+                    .andExpect(status().isOk());
+            verify(keywordExtractionService).extract(new ExtractRequest("Ein Text", terminology));
+        }
+    }
+
+    @Test
+    void extractRejectsUnknownTerminology() throws Exception {
+        mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"text\": \"Ein Text\", \"terminology\": \"wikidata\"}"))
+                .andExpect(status().isBadRequest());
+        verifyNoInteractions(keywordExtractionService);
     }
 
     @Test
     void extractIgnoresLegacyMaxKeywordsParameter() throws Exception {
-        when(ollamaService.extract("Ein Text"))
-                .thenReturn(new ExtractionResult("de", List.of(new Keyword("Text", "direkt"))));
+        when(keywordExtractionService.extract(any())).thenReturn(Map.of());
 
         mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
                         .content("{\"text\": \"Ein Text\", \"maxKeywords\": 1}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.keywords[0].term").value("Text"));
-        verify(ollamaService).extract("Ein Text");
+                .andExpect(status().isOk());
+        verify(keywordExtractionService).extract(new ExtractRequest("Ein Text", Terminology.NONE));
     }
 
     @Test
     void extractRejectsBlankText() throws Exception {
         mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"text\": \" \"}"))
+                        .content("{\"text\": \" \", \"terminology\": \"gnd\"}"))
                 .andExpect(status().isBadRequest());
-        verifyNoInteractions(ollamaService);
+        verifyNoInteractions(keywordExtractionService);
     }
 
     @Test
     void extractMapsOllamaFailureToBadGateway() throws Exception {
-        when(ollamaService.extract("Text")).thenThrow(new ExternalServiceException("Ollama request failed"));
+        when(keywordExtractionService.extract(any())).thenThrow(new ExternalServiceException("Ollama request failed"));
 
         mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
                         .content("{\"text\": \"Text\"}"))
@@ -97,32 +128,10 @@ class KeywordControllerTest {
     }
 
     @Test
-    void matchAcceptsExtractResponseWithSources() throws Exception {
-        when(keywordMatchService.match(any())).thenReturn(new MatchResponse("de", List.of(), List.of()));
-
+    void matchEndpointNoLongerExists() throws Exception {
         mockMvc.perform(post("/api/keywords/match").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                {"language": "de", "sources": ["gnd"],
-                                 "keywords": [{"term": "Zeolith", "type": "direkt"}]}"""))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.language").value("de"));
-        verify(keywordMatchService).match(new MatchRequest("de",
-                List.of(new Keyword("Zeolith", "direkt")), Set.of(NormdataSource.GND)));
-    }
-
-    @Test
-    void matchRejectsUnknownSource() throws Exception {
-        mockMvc.perform(post("/api/keywords/match").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"sources\": [\"wikidata\"], \"keywords\": [{\"term\": \"Zeolith\"}]}"))
-                .andExpect(status().isBadRequest());
-        verifyNoInteractions(keywordMatchService);
-    }
-
-    @Test
-    void matchRejectsMissingKeywords() throws Exception {
-        mockMvc.perform(post("/api/keywords/match").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"keywords\": []}"))
-                .andExpect(status().isBadRequest());
-        verifyNoInteractions(keywordMatchService);
+                        .content("{\"keywords\": [\"Zeolith\"]}"))
+                .andExpect(status().is4xxClientError());
+        verifyNoInteractions(keywordExtractionService);
     }
 }

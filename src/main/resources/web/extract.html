@@ -5,25 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Keyword-Extraktion</title>
     <style>
-        body { font-family: system-ui, sans-serif; max-width: 50rem; margin: 2rem auto; padding: 0 1rem; color: #222; }
+        body { font-family: system-ui, sans-serif; max-width: 60rem; margin: 2rem auto; padding: 0 1rem; color: #222; }
         textarea { width: 100%; min-height: 14rem; box-sizing: border-box; font: inherit; padding: .5rem; }
         button { margin-top: .5rem; padding: .5rem 1.25rem; font: inherit; cursor: pointer; }
         button:disabled { cursor: wait; opacity: .6; }
         #status { margin-top: 1rem; }
         #status.error { color: #b00020; }
-        ul { padding-left: 1.25rem; }
-        .type { color: #666; font-size: .9em; }
         pre { background: #f4f4f4; padding: .75rem; overflow-x: auto; }
         fieldset { border: none; padding: 0; margin: 1rem 0 0; }
         fieldset label { margin-right: 1rem; }
-        #match-status { margin-top: 1rem; }
-        #match-status.error { color: #b00020; }
-        .warnings { color: #8a5a00; }
         .table-wrap { overflow-x: auto; }
         table { border-collapse: collapse; width: 100%; margin-bottom: 1rem; font-size: .95em; }
         th, td { border-bottom: 1px solid #ddd; padding: .3rem .5rem; text-align: left; vertical-align: top; }
         th { background: #f4f4f4; }
-        .none { color: #666; font-style: italic; margin-bottom: 1rem; }
+        .none { color: #666; font-style: italic; }
     </style>
 </head>
 <body>
@@ -31,32 +26,30 @@
 <form id="extract-form">
     <label for="text">Text</label>
     <textarea id="text" name="text" required maxlength="100000"></textarea>
+    <fieldset>
+        <legend>Normdaten-Abgleich</legend>
+        <label><input type="radio" name="terminology" value="none" checked> keiner</label>
+        <label><input type="radio" name="terminology" value="gnd"> GND</label>
+        <label><input type="radio" name="terminology" value="tib"> TIB</label>
+        <label><input type="radio" name="terminology" value="both"> GND und TIB</label>
+    </fieldset>
     <button type="submit" id="submit">Keywords extrahieren</button>
 </form>
 <div id="status" role="status" aria-live="polite"></div>
 <section id="result" hidden>
     <h2>Ergebnis</h2>
-    <p>Sprache: <span id="language"></span></p>
-    <ul id="keywords"></ul>
+    <div class="table-wrap">
+        <table>
+            <thead>
+            <tr><th>Keyword</th><th>Quelle</th><th>Label</th><th>Treffer über</th><th>Ontologie</th>
+                <th>Schema</th><th>Code</th></tr>
+            </thead>
+            <tbody id="keywords"></tbody>
+        </table>
+    </div>
     <details>
         <summary>JSON-Antwort</summary>
         <pre id="raw"></pre>
-    </details>
-    <fieldset>
-        <legend>Quellen für den Abgleich (keine Auswahl = alle)</legend>
-        <label><input type="checkbox" name="source" value="gnd"> GND</label>
-        <label><input type="checkbox" name="source" value="tib"> TIB</label>
-    </fieldset>
-    <button type="button" id="match">Normdaten abgleichen</button>
-    <div id="match-status" role="status" aria-live="polite"></div>
-</section>
-<section id="match-result" hidden>
-    <h2>Normdaten-Abgleich</h2>
-    <ul id="match-warnings" class="warnings" hidden></ul>
-    <div id="matches"></div>
-    <details>
-        <summary>JSON-Antwort</summary>
-        <pre id="match-raw"></pre>
     </details>
 </section>
 <script>
@@ -65,20 +58,10 @@
     const submit = document.getElementById("submit");
     const status = document.getElementById("status");
     const result = document.getElementById("result");
-    const matchButton = document.getElementById("match");
-    const matchStatus = document.getElementById("match-status");
-    const matchResult = document.getElementById("match-result");
-    // Last successful extraction result, sent unchanged to POST .../match.
-    let extraction = null;
 
     function showStatus(message, isError) {
         status.textContent = message;
         status.className = isError ? "error" : "";
-    }
-
-    function showMatchStatus(message, isError) {
-        matchStatus.textContent = message;
-        matchStatus.className = isError ? "error" : "";
     }
 
     function errorMessage(response, body) {
@@ -102,102 +85,35 @@
         }
     }
 
-    function renderMatches(body) {
-        const warnings = document.getElementById("match-warnings");
-        warnings.replaceChildren();
-        for (const warning of body.warnings || []) {
-            const item = document.createElement("li");
-            item.textContent = warning;
-            warnings.appendChild(item);
-        }
-        warnings.hidden = warnings.childElementCount === 0;
-
-        const container = document.getElementById("matches");
-        container.replaceChildren();
-        for (const keyword of body.keywords || []) {
-            const heading = document.createElement("h3");
-            heading.textContent = keyword.term + " ";
-            const type = document.createElement("span");
-            type.className = "type";
-            type.textContent = "(" + (keyword.type || "–") + ")";
-            heading.appendChild(type);
-            container.appendChild(heading);
-
-            const matches = keyword.matches || [];
-            if (matches.length === 0) {
-                const none = document.createElement("p");
+    function render(body, terminology) {
+        const tbody = document.getElementById("keywords");
+        tbody.replaceChildren();
+        for (const [keyword, match] of Object.entries(body || {})) {
+            const row = tbody.insertRow();
+            cell(row, keyword);
+            if (!match) {
+                const none = cell(row, terminology === "none" ? "" : "Kein Treffer.");
+                none.colSpan = 6;
                 none.className = "none";
-                none.textContent = "Keine Treffer.";
-                container.appendChild(none);
                 continue;
             }
-            const table = document.createElement("table");
-            const head = table.createTHead().insertRow();
-            for (const title of ["Quelle", "Label", "ID", "Vokabular", "Typen", "Match", "Score"]) {
-                const th = document.createElement("th");
-                th.textContent = title;
-                head.appendChild(th);
+            cell(row, match.source);
+            const label = cell(row, match.label);
+            if (match.iri && isHttpUrl(match.iri)) {
+                const link = document.createElement("a");
+                link.href = match.iri;
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.textContent = match.label || match.iri;
+                label.replaceChildren(link);
             }
-            const tbody = table.createTBody();
-            for (const match of matches) {
-                const row = tbody.insertRow();
-                cell(row, match.source);
-                const label = cell(row, match.label);
-                if (match.uri && isHttpUrl(match.uri)) {
-                    const link = document.createElement("a");
-                    link.href = match.uri;
-                    link.target = "_blank";
-                    link.rel = "noopener noreferrer";
-                    link.textContent = match.label || match.uri;
-                    label.replaceChildren(link);
-                }
-                cell(row, match.id);
-                cell(row, match.vocabulary);
-                cell(row, (match.types || []).join(", "));
-                cell(row, match.matchType);
-                cell(row, typeof match.score === "number" ? match.score.toFixed(2) : match.score);
-            }
-            const wrap = document.createElement("div");
-            wrap.className = "table-wrap";
-            wrap.appendChild(table);
-            container.appendChild(wrap);
+            cell(row, match.best_term);
+            cell(row, match.ontology_name);
+            cell(row, match.keyword_scheme);
+            cell(row, match.classification_code);
         }
-        document.getElementById("match-raw").textContent = JSON.stringify(body, null, 2);
-        matchResult.hidden = false;
+        document.getElementById("raw").textContent = JSON.stringify(body, null, 2);
     }
-
-    matchButton.addEventListener("click", async () => {
-        if (!extraction || !(extraction.keywords || []).length) {
-            showMatchStatus("Keine Keywords zum Abgleichen vorhanden.", true);
-            return;
-        }
-        const sources = [...document.querySelectorAll("input[name=source]:checked")].map(box => box.value);
-        matchButton.disabled = true;
-        submit.disabled = true;
-        matchResult.hidden = true;
-        showMatchStatus("Gleiche Normdaten ab …", false);
-        try {
-            // Relative URL: this page is served at GET .../extract, the API is POST .../match.
-            const response = await fetch("match", {
-                method: "POST",
-                headers: {"Content-Type": "application/json", "Accept": "application/json"},
-                body: JSON.stringify({language: extraction.language, keywords: extraction.keywords, sources: sources})
-            });
-            const body = await response.json().catch(() => null);
-            if (!response.ok) {
-                showMatchStatus(errorMessage(response, body), true);
-                return;
-            }
-            renderMatches(body);
-            const hits = (body.keywords || []).filter(k => (k.matches || []).length > 0).length;
-            showMatchStatus(hits + " von " + (body.keywords || []).length + " Keywords mit Treffern.", false);
-        } catch (error) {
-            showMatchStatus("Anfrage fehlgeschlagen: " + error.message, true);
-        } finally {
-            matchButton.disabled = false;
-            submit.disabled = false;
-        }
-    });
 
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -206,47 +122,32 @@
             showStatus("Bitte einen Text eingeben.", true);
             return;
         }
+        const terminology = form.querySelector("input[name=terminology]:checked").value;
         submit.disabled = true;
-        matchButton.disabled = true;
         result.hidden = true;
-        matchResult.hidden = true;
-        showMatchStatus("", false);
-        extraction = null;
-        showStatus("Extrahiere Keywords …", false);
+        showStatus(terminology === "none" ? "Extrahiere Keywords …" : "Extrahiere Keywords und gleiche Normdaten ab …", false);
         try {
             // Relative URL: this page is served at GET .../extract, the API is POST .../extract.
             const response = await fetch("extract", {
                 method: "POST",
                 headers: {"Content-Type": "application/json", "Accept": "application/json"},
-                body: JSON.stringify({text: text})
+                body: JSON.stringify({text: text, terminology: terminology})
             });
             const body = await response.json().catch(() => null);
             if (!response.ok) {
                 showStatus(errorMessage(response, body), true);
                 return;
             }
-            extraction = body;
-            document.getElementById("language").textContent = body.language || "–";
-            const list = document.getElementById("keywords");
-            list.replaceChildren();
-            for (const keyword of body.keywords || []) {
-                const item = document.createElement("li");
-                item.textContent = keyword.term + " ";
-                const type = document.createElement("span");
-                type.className = "type";
-                type.textContent = "(" + (keyword.type || "–") + ")";
-                item.appendChild(type);
-                list.appendChild(item);
-            }
-            document.getElementById("raw").textContent = JSON.stringify(body, null, 2);
-            showStatus((body.keywords || []).length + " Keywords gefunden.", false);
-            matchButton.hidden = (body.keywords || []).length === 0;
+            render(body, terminology);
+            const entries = Object.values(body || {});
+            const hits = entries.filter(match => match).length;
+            showStatus(entries.length + " Keywords gefunden"
+                + (terminology === "none" ? "." : ", " + hits + " mit Normdaten-Treffer."), false);
             result.hidden = false;
         } catch (error) {
             showStatus("Anfrage fehlgeschlagen: " + error.message, true);
         } finally {
             submit.disabled = false;
-            matchButton.disabled = false;
         }
     });
 </script>

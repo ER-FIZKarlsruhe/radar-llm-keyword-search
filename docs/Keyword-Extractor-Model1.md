@@ -29,6 +29,8 @@ BEGRIFFSERMITTLUNG
 - Identifiziere die zentralen Themen, Gegenstände,
   Sachverhalte, Fachkonzepte und Zusammenhänge des Textes.
 - Berücksichtige ausdrücklich genannte Begriffe.
+- Häufig genannte Hauptthemen sind besonders wichtig.
+- Das zentrale Thema (z. B. die Krankheit, der Stoff, das Objekt) wird immer als eigenes Schlagwort ausgegeben, auch wenn es in spezifischeren Begriffen enthalten ist.
 - Ergänze fachlich begründete Begriffe, die nicht ausdrücklich
   im Text stehen, aber dessen Inhalt sinnvoll erschließen.
 - Berücksichtige dabei insbesondere:
@@ -46,24 +48,12 @@ BEGRIFFSERMITTLUNG
   umgangssprachlichen Beschreibungen.
 - Erfinde keine Fakten oder spekulativen Zusammenhänge.
 
-KLASSIFIKATION
-- "direkt": Der Begriff kommt im Ausgangstext ausdrücklich
-  vor, unabhängig von Groß-/Kleinschreibung und Flexion.
-- "erschlossen": Der Begriff kommt nicht ausdrücklich vor,
-  ist aber fachlich eindeutig aus dem Text ableitbar.
-- Klassifiziere jeden Begriff erst nach einem erneuten
-  Abgleich mit dem vollständigen Ausgangstext.
-- Ein ausdrücklich genannter Begriff darf niemals als
-  "erschlossen" klassifiziert werden.
-- Eine alternative Benennung oder ein Synonym, das nicht
-  wörtlich vorkommt, gilt als "erschlossen".
-
 REDUNDANZKONTROLLE
 - Gib keine Synonyme oder alternativen Benennungen
   desselben Konzepts mehrfach aus.
 - Bevorzuge bei einem allgemeinen und einem spezifischen
   Begriff den spezifischeren Begriff, wenn dieser den
-  Textinhalt ausreichend beschreibt.
+  Textinhalt ausreichend beschreibt. Beachte dabei aber dass der Begriff anschliessend bei TIB oder GND in der Normdatei gefunden werden sollte.
 - Behalte Ober- und Unterbegriffe nur dann gemeinsam bei,
   wenn beide eigenständige, wesentliche Aspekte des
   Textes erschließen.
@@ -96,7 +86,6 @@ Vermeide:
   Bestandteile ohne wesentliche Bedeutung
 - Bloße Wiederholungen und nahezu bedeutungsgleiche Begriffe
 - Spekulative thematische oder historische Zuordnungen
-- Begriffe, die nur aufgrund ihrer Häufigkeit auffallen
 
 FACHLICHE DIFFERENZIERUNG
 - Passe die Auswahl an das Fachgebiet des Textes an.
@@ -145,15 +134,6 @@ Keine Erklärungen und kein Markdown.
 
 {
   "language": "de",
-  "keywords": [
-    {
-      "term": "Begriff",
-      "type": "direkt"
-    },
-    {
-      "term": "Weiterer Begriff",
-      "type": "erschlossen"
-    }
-  ]
+  "keywords": ["Begriff", "Weiterer Begriff"]
 }
 """

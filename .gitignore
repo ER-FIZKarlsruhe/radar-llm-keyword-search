@@ -5,3 +5,8 @@ target/
 *.iws
 *.iml
 *.ipr
+
+# Evaluation output (may contain licensed benchmark texts, e.g. KPBiomed CC BY-NC)
+evaluation/results/
+evaluation/reports/
+__pycache__/

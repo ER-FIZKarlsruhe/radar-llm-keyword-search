@@ -4,13 +4,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.radar_project.config.OllamaProperties;
 import org.radar_project.model.ExtractionResult;
-import org.radar_project.model.Keyword;
 import org.springframework.http.MediaType;
+import org.springframework.mock.http.client.MockClientHttpRequest;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestClient;
+import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -49,17 +52,36 @@ class OllamaServiceTest {
                 .andExpect(jsonPath("$.format.required[1]").value("keywords"))
                 .andExpect(jsonPath("$.messages[0].content").value("Ein Text über Zeolithe."))
                 .andRespond(chatResponse("""
-                        {"language": "de", "keywords": [
-                          {"term": "Zeolith", "type": "direkt"},
-                          {"term": " ", "type": "direkt"},
-                          {"term": "Katalyse", "type": "erschlossen"}]}"""));
+                        {"language": "de", "keywords": ["Zeolith", " ", "Katalyse"]}"""));
 
         ExtractionResult result = ollamaService.extract("Ein Text über Zeolithe.");
 
         assertThat(result.language()).isEqualTo("de");
-        assertThat(result.keywords()).containsExactly(
-                new Keyword("Zeolith", "direkt"), new Keyword("Katalyse", "erschlossen"));
+        assertThat(result.keywords()).containsExactly("Zeolith", "Katalyse");
         server.verify();
+    }
+
+    @Test
+    void sendsSchemaPropertiesInFixedOrderSoThatLanguageIsGeneratedFirst() {
+        // Ollama generates fields in schema order; "language" must precede "keywords",
+        // otherwise the model writes keywords before it has determined the text language.
+        server.expect(requestTo("https://ollama.test/ollama/api/chat"))
+                .andExpect(request -> {
+                    String body = ((MockClientHttpRequest) request).getBodyAsString();
+                    JsonNode format = JsonMapper.builder().build().readTree(body).get("format");
+                    assertThat(propertyNames(format.get("properties"))).containsExactly("language", "keywords");
+                    assertThat(format.at("/properties/keywords/items/type").asString()).isEqualTo("string");
+                })
+                .andRespond(chatResponse("""
+                        {"language": "en", "keywords": ["Zeolite"]}"""));
+
+        ollamaService.extract("A text about zeolites.");
+
+        server.verify();
+    }
+
+    private static List<String> propertyNames(JsonNode node) {
+        return node.properties().stream().map(Map.Entry::getKey).toList();
     }
 
     @Test
@@ -67,16 +89,26 @@ class OllamaServiceTest {
         createService(1);
         server.expect(requestTo("https://ollama.test/ollama/api/chat"))
                 .andRespond(chatResponse("""
-                        {"language": "de", "keywords": [
-                          {"term": "A", "type": "direkt"}, {"term": "B", "type": "direkt"}]}"""));
+                        {"language": "de", "keywords": ["A", "B"]}"""));
 
-        assertThat(ollamaService.extract("Text").keywords()).extracting(Keyword::term).containsExactly("A");
+        assertThat(ollamaService.extract("Text").keywords()).containsExactly("A");
     }
 
     @Test
     void rejectsInvalidModelOutput() {
         server.expect(requestTo("https://ollama.test/ollama/api/chat"))
                 .andRespond(chatResponse("keine JSON-Antwort"));
+
+        assertThatThrownBy(() -> ollamaService.extract("Text"))
+                .isInstanceOf(ExternalServiceException.class)
+                .hasMessage("Ollama returned invalid keyword JSON");
+    }
+
+    @Test
+    void rejectsLegacyKeywordObjects() {
+        server.expect(requestTo("https://ollama.test/ollama/api/chat"))
+                .andRespond(chatResponse("""
+                        {"language": "de", "keywords": [{"term": "Zeolith", "type": "direkt"}]}"""));
 
         assertThatThrownBy(() -> ollamaService.extract("Text"))
                 .isInstanceOf(ExternalServiceException.class)

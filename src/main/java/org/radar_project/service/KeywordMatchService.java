@@ -1,10 +1,6 @@
 package org.radar_project.service;
 
 import org.radar_project.config.MatchingProperties;
-import org.radar_project.model.Keyword;
-import org.radar_project.model.MatchRequest;
-import org.radar_project.model.MatchResponse;
-import org.radar_project.model.MatchedKeyword;
 import org.radar_project.model.NormdataCandidate;
 import org.radar_project.model.NormdataMatch;
 import org.radar_project.model.NormdataSource;
@@ -16,8 +12,10 @@ import org.springframework.web.client.RestClientException;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.EnumSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -26,8 +24,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.Semaphore;
 
 /**
- * Searches GND and/or TIB for each keyword in parallel and matches the hits. A failing search
- * does not fail the request but is reported as warning.
+ * Searches GND and/or TIB for each keyword in parallel and picks the best match per keyword. A failing
+ * search does not fail the request: it is logged and that source simply contributes no match.
  */
 @Service
 public class KeywordMatchService {
@@ -47,62 +45,62 @@ public class KeywordMatchService {
         this.searchSlots = new Semaphore(properties.maxConcurrentRequests());
     }
 
-    public MatchResponse match(MatchRequest request) {
-        Set<NormdataSource> sources = request.sources().isEmpty()
-                ? EnumSet.allOf(NormdataSource.class)
-                : EnumSet.copyOf(request.sources());
-
-        List<List<Future<SearchOutcome>>> futures = new ArrayList<>();
+    /**
+     * Returns the best match per keyword, in keyword order; duplicate keywords are searched once.
+     * The value is null if no source has a match.
+     *
+     * @param sources        the sources to search
+     * @param preferredOnTie the source whose match wins if the best matches of both sources score equally
+     */
+    public Map<String, @Nullable NormdataMatch> bestMatches(List<String> keywords, Set<NormdataSource> sources,
+                                                            NormdataSource preferredOnTie) {
+        List<String> distinctKeywords = List.copyOf(new LinkedHashSet<>(keywords));
+        List<List<Future<List<NormdataMatch>>>> futures = new ArrayList<>();
         try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
-            for (Keyword keyword : request.keywords()) {
-                List<Future<SearchOutcome>> keywordFutures = new ArrayList<>();
+            for (String keyword : distinctKeywords) {
+                List<Future<List<NormdataMatch>>> keywordFutures = new ArrayList<>();
                 for (NormdataSource source : sources) {
-                    keywordFutures.add(executor.submit(() -> search(keyword.term(), source)));
+                    keywordFutures.add(executor.submit(() -> search(keyword, source)));
                 }
                 futures.add(keywordFutures);
             }
         }
 
-        List<MatchedKeyword> keywords = new ArrayList<>();
-        List<String> warnings = new ArrayList<>();
-        for (int i = 0; i < request.keywords().size(); i++) {
-            Keyword keyword = request.keywords().get(i);
+        Comparator<NormdataMatch> bestFirst = Comparator.comparingDouble(NormdataMatch::score).reversed()
+                .thenComparing(match -> match.source() == preferredOnTie ? 0 : 1);
+        Map<String, @Nullable NormdataMatch> bestMatches = new LinkedHashMap<>();
+        for (int i = 0; i < distinctKeywords.size(); i++) {
             List<NormdataMatch> matches = new ArrayList<>();
-            for (Future<SearchOutcome> future : futures.get(i)) {
-                SearchOutcome outcome = result(future);
-                matches.addAll(outcome.matches());
-                if (outcome.warning() != null) {
-                    warnings.add(outcome.warning());
-                }
+            for (Future<List<NormdataMatch>> future : futures.get(i)) {
+                matches.addAll(result(future));
             }
-            matches.sort(Comparator.comparingDouble(NormdataMatch::score).reversed());
-            keywords.add(new MatchedKeyword(keyword.term(), keyword.type(), List.copyOf(matches)));
+            bestMatches.put(distinctKeywords.get(i), matches.stream().min(bestFirst).orElse(null));
         }
-        return new MatchResponse(request.language(), keywords, warnings);
+        return bestMatches;
     }
 
-    private SearchOutcome search(String term, NormdataSource source) {
+    private List<NormdataMatch> search(String term, NormdataSource source) {
         try {
             searchSlots.acquire();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            return SearchOutcome.failed(source, term);
+            return List.of();
         }
         try {
             List<NormdataCandidate> candidates = switch (source) {
                 case GND -> gndService.search(term);
                 case TIB -> tibService.search(term);
             };
-            return new SearchOutcome(matchingService.match(term, candidates), null);
+            return matchingService.match(term, candidates);
         } catch (RestClientException e) {
             log.warn("{} search failed: {}", source.value(), e.getMessage());
-            return SearchOutcome.failed(source, term);
+            return List.of();
         } finally {
             searchSlots.release();
         }
     }
 
-    private static SearchOutcome result(Future<SearchOutcome> future) {
+    private static List<NormdataMatch> result(Future<List<NormdataMatch>> future) {
         try {
             return future.get();
         } catch (InterruptedException e) {
@@ -110,13 +108,6 @@ public class KeywordMatchService {
             throw new IllegalStateException("Interrupted while waiting for normdata search", e);
         } catch (ExecutionException e) {
             throw new IllegalStateException("Normdata search failed unexpectedly", e.getCause());
-        }
-    }
-
-    private record SearchOutcome(List<NormdataMatch> matches, @Nullable String warning) {
-
-        static SearchOutcome failed(NormdataSource source, String term) {
-            return new SearchOutcome(List.of(), source.value() + " search failed for term '" + term + "'");
         }
     }
 }

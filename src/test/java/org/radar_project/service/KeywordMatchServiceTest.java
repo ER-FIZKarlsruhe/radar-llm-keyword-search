@@ -2,26 +2,27 @@ package org.radar_project.service;
 
 import org.junit.jupiter.api.Test;
 import org.radar_project.config.MatchingProperties;
-import org.radar_project.model.Keyword;
-import org.radar_project.model.MatchRequest;
-import org.radar_project.model.MatchResponse;
-import org.radar_project.model.MatchedKeyword;
 import org.radar_project.model.NormdataCandidate;
 import org.radar_project.model.NormdataMatch;
 import org.radar_project.model.NormdataSource;
 import org.springframework.web.client.ResourceAccessException;
 
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class KeywordMatchServiceTest {
+
+    private static final Set<NormdataSource> ALL = EnumSet.allOf(NormdataSource.class);
 
     private final GndService gndService = mock(GndService.class);
     private final TibService tibService = mock(TibService.class);
@@ -29,62 +30,92 @@ class KeywordMatchServiceTest {
             new MatchingService(), new MatchingProperties(2));
 
     @Test
-    void searchesAllSourcesByDefaultAndKeepsKeywordOrder() {
+    void returnsBestMatchPerKeywordInKeywordOrderAndNullWithoutMatch() {
         when(gndService.search("Zeolith")).thenReturn(List.of(gnd("Zeolith")));
-        when(gndService.search("Katalyse")).thenReturn(List.of(gnd("Katalyse")));
-        when(tibService.search("Zeolith")).thenReturn(List.of(
-                new NormdataCandidate(NormdataSource.TIB, "CHEBI_48729", "http://chebi/48729", "zeolite",
-                        List.of("Zeolith"), "chebi", List.of("class"))));
+        when(tibService.search("Zeolith")).thenReturn(List.of(tib("zeolite", List.of("Zeolith"))));
+        when(gndService.search("Katalyse")).thenReturn(List.of(gnd("Katalysator")));
         when(tibService.search("Katalyse")).thenReturn(List.of());
 
-        MatchResponse response = service.match(new MatchRequest("de",
-                List.of(new Keyword("Zeolith", "direkt"), new Keyword("Katalyse", "erschlossen")), null));
+        Map<String, NormdataMatch> matches = service.bestMatches(List.of("Zeolith", "Katalyse"), ALL, NormdataSource.TIB);
 
-        assertThat(response.language()).isEqualTo("de");
-        assertThat(response.warnings()).isEmpty();
-        assertThat(response.keywords()).extracting(MatchedKeyword::term).containsExactly("Zeolith", "Katalyse");
-        assertThat(response.keywords().get(0).matches()).extracting(NormdataMatch::source)
-                .containsExactly(NormdataSource.GND, NormdataSource.TIB);
-        assertThat(response.keywords().get(1).type()).isEqualTo("erschlossen");
+        assertThat(matches).containsOnlyKeys("Zeolith", "Katalyse");
+        assertThat(matches.keySet()).containsExactly("Zeolith", "Katalyse");
+        // GND matches exactly (score 1.0), TIB only via synonym (0.9): the higher score wins over the preference.
+        assertThat(matches.get("Zeolith").source()).isEqualTo(NormdataSource.GND);
+        assertThat(matches.get("Katalyse")).isNull();
+    }
+
+    @Test
+    void prefersGivenSourceOnEqualScore() {
+        when(gndService.search("Zeolith")).thenReturn(List.of(gnd("Zeolith")));
+        when(tibService.search("Zeolith")).thenReturn(List.of(tib("Zeolith", List.of())));
+
+        assertThat(service.bestMatches(List.of("Zeolith"), ALL, NormdataSource.GND).get("Zeolith").source())
+                .isEqualTo(NormdataSource.GND);
+        assertThat(service.bestMatches(List.of("Zeolith"), ALL, NormdataSource.TIB).get("Zeolith").source())
+                .isEqualTo(NormdataSource.TIB);
     }
 
     @Test
     void searchesOnlyRequestedSources() {
         when(gndService.search("Zeolith")).thenReturn(List.of(gnd("Zeolith")));
 
-        MatchResponse response = service.match(new MatchRequest(null,
-                List.of(new Keyword("Zeolith", "direkt")), Set.of(NormdataSource.GND)));
+        Map<String, NormdataMatch> matches = service.bestMatches(List.of("Zeolith"), Set.of(NormdataSource.GND),
+                NormdataSource.TIB);
 
-        assertThat(response.keywords().get(0).matches()).hasSize(1);
+        assertThat(matches.get("Zeolith").source()).isEqualTo(NormdataSource.GND);
         verify(tibService, never()).search(anyString());
     }
 
     @Test
-    void reportsFailedSourceAsWarningAndKeepsOtherMatches() {
+    void keepsMatchOfOtherSourceWhenOneSourceFails() {
         when(gndService.search("Zeolith")).thenReturn(List.of(gnd("Zeolith")));
         when(tibService.search("Zeolith")).thenThrow(new ResourceAccessException("timeout"));
 
-        MatchResponse response = service.match(new MatchRequest(null, List.of(new Keyword("Zeolith", "direkt")), null));
+        assertThat(service.bestMatches(List.of("Zeolith"), ALL, NormdataSource.TIB).get("Zeolith").source())
+                .isEqualTo(NormdataSource.GND);
+    }
 
-        assertThat(response.keywords().get(0).matches()).extracting(NormdataMatch::source)
-                .containsExactly(NormdataSource.GND);
-        assertThat(response.warnings()).containsExactly("tib search failed for term 'Zeolith'");
+    @Test
+    void returnsNullWhenAllSourcesFail() {
+        when(gndService.search(anyString())).thenThrow(new ResourceAccessException("timeout"));
+        when(tibService.search(anyString())).thenThrow(new ResourceAccessException("timeout"));
+
+        Map<String, NormdataMatch> matches = service.bestMatches(List.of("Zeolith"), ALL, NormdataSource.TIB);
+
+        assertThat(matches).containsEntry("Zeolith", null);
+    }
+
+    @Test
+    void searchesDuplicateKeywordsOnce() {
+        when(gndService.search("Zeolith")).thenReturn(List.of(gnd("Zeolith")));
+
+        Map<String, NormdataMatch> matches = service.bestMatches(List.of("Zeolith", "Zeolith"),
+                Set.of(NormdataSource.GND), NormdataSource.TIB);
+
+        assertThat(matches).containsOnlyKeys("Zeolith");
+        verify(gndService, times(1)).search("Zeolith");
     }
 
     @Test
     void releasesSearchSlotsAfterFailures() {
         when(gndService.search(anyString())).thenThrow(new ResourceAccessException("timeout"));
         when(tibService.search(anyString())).thenThrow(new ResourceAccessException("timeout"));
-        MatchRequest request = new MatchRequest(null, List.of(new Keyword("A", null), new Keyword("B", null)), null);
 
-        service.match(request);
-        MatchResponse second = service.match(request);
+        service.bestMatches(List.of("A", "B"), ALL, NormdataSource.TIB);
+        // With leaked slots (2 configured, 4 searches) this second call would block forever.
+        Map<String, NormdataMatch> second = service.bestMatches(List.of("A", "B"), ALL, NormdataSource.TIB);
 
-        assertThat(second.warnings()).hasSize(4);
+        assertThat(second).containsEntry("A", null).containsEntry("B", null);
     }
 
     private static NormdataCandidate gnd(String label) {
         return new NormdataCandidate(NormdataSource.GND, label, "https://d-nb.info/gnd/" + label, label,
                 List.of(), null, List.of("SubjectHeading"));
+    }
+
+    private static NormdataCandidate tib(String label, List<String> synonyms) {
+        return new NormdataCandidate(NormdataSource.TIB, "CHEBI_48729", "http://purl.obolibrary.org/obo/CHEBI_48729",
+                label, synonyms, "chebi", List.of("class"));
     }
 }
