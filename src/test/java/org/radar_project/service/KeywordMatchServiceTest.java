@@ -98,6 +98,31 @@ class KeywordMatchServiceTest {
     }
 
     @Test
+    void mergesKeywordsWithSameNormalizedFormKeepingFirstVariant() {
+        when(gndService.search("Cyclic Voltammetry")).thenReturn(List.of(gnd("Cyclovoltammetrie")));
+        when(gndService.search("Friedel-Crafts-Acylierung")).thenReturn(List.of(gnd("Friedel-Crafts-Acylierung")));
+
+        Map<String, NormdataMatch> matches = service.bestMatches(List.of("Cyclic Voltammetry", "Friedel-Crafts-Acylierung",
+                "cyclic voltammetry", "Friedel Crafts Acylierung"), Set.of(NormdataSource.GND), NormdataSource.TIB);
+
+        assertThat(matches.keySet()).containsExactly("Cyclic Voltammetry", "Friedel-Crafts-Acylierung");
+        assertThat(matches.get("Friedel-Crafts-Acylierung").label()).isEqualTo("Friedel-Crafts-Acylierung");
+        verify(gndService, times(1)).search("Cyclic Voltammetry");
+        verify(gndService, never()).search("cyclic voltammetry");
+        verify(gndService, never()).search("Friedel Crafts Acylierung");
+    }
+
+    @Test
+    void keepsKeywordsWithDifferentNormalizedForm() {
+        Map<String, NormdataMatch> matches = service.bestMatches(List.of("Kulturdenkmal", "Kulturdenkmale"),
+                Set.of(NormdataSource.GND), NormdataSource.TIB);
+
+        assertThat(matches.keySet()).containsExactly("Kulturdenkmal", "Kulturdenkmale");
+        verify(gndService).search("Kulturdenkmal");
+        verify(gndService).search("Kulturdenkmale");
+    }
+
+    @Test
     void releasesSearchSlotsAfterFailures() {
         when(gndService.search(anyString())).thenThrow(new ResourceAccessException("timeout"));
         when(tibService.search(anyString())).thenThrow(new ResourceAccessException("timeout"));

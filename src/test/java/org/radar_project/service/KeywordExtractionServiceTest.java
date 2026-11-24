@@ -11,6 +11,7 @@ import org.radar_project.model.Terminology;
 
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -102,12 +103,40 @@ class KeywordExtractionServiceTest {
     @Test
     void searchesOnlyTibForTerminologyTib() {
         when(ollamaService.extract("Text", "keyword-extractor")).thenReturn(new ExtractionResult("de", List.of("Zeolith")));
-        when(keywordMatchService.bestMatches(anyList(), anySet(), any())).thenReturn(Map.of());
+        Map<String, NormdataMatch> noMatch = new HashMap<>();
+        noMatch.put("Zeolith", null);
+        when(keywordMatchService.bestMatches(anyList(), anySet(), any())).thenReturn(noMatch);
 
         Map<String, KeywordIri> result = service.extract(new ExtractRequest("Text", Terminology.TIB, "keyword-extractor"));
 
         verify(keywordMatchService).bestMatches(List.of("Zeolith"), Set.of(NormdataSource.TIB), NormdataSource.GND);
         assertThat(result).containsEntry("Zeolith", null);
+    }
+
+    @Test
+    void returnsOnlyKeywordsKeptByMatchServiceInKeywordOrder() {
+        when(ollamaService.extract("Text", "keyword-extractor"))
+                .thenReturn(new ExtractionResult("de", List.of("Zeolith", "zeolith", "Katalyse")));
+        Map<String, NormdataMatch> merged = new LinkedHashMap<>();
+        merged.put("Zeolith", null);
+        merged.put("Katalyse", null);
+        when(keywordMatchService.bestMatches(List.of("Zeolith", "zeolith", "Katalyse"), EnumSet.allOf(NormdataSource.class),
+                NormdataSource.GND)).thenReturn(merged);
+
+        Map<String, KeywordIri> result = service.extract(new ExtractRequest("Text", Terminology.BOTH, "keyword-extractor"));
+
+        assertThat(result.keySet()).containsExactly("Zeolith", "Katalyse");
+    }
+
+    @Test
+    void keepsKeywordVariantsWithoutNormdataLookup() {
+        when(ollamaService.extract("Text", "keyword-extractor"))
+                .thenReturn(new ExtractionResult("de", List.of("Zeolith", "zeolith")));
+
+        Map<String, KeywordIri> result = service.extract(new ExtractRequest("Text", Terminology.NONE, "keyword-extractor"));
+
+        assertThat(result.keySet()).containsExactly("Zeolith", "zeolith");
+        verifyNoInteractions(keywordMatchService);
     }
 
     @Test

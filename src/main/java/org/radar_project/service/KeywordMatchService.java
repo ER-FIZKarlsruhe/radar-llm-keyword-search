@@ -13,7 +13,6 @@ import org.springframework.web.client.RestClientException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -46,15 +45,17 @@ public class KeywordMatchService {
     }
 
     /**
-     * Returns the best match per keyword, in keyword order; duplicate keywords are searched once.
-     * The value is null if no source has a match.
+     * Returns the best match per keyword, in keyword order. Keywords with the same normalized form
+     * (see {@link MatchingService#normalize}) are merged: only the first of them is searched and returned
+     * as key, so the returned map has exactly one entry per normalized form. The value is null if no
+     * source has a match.
      *
      * @param sources        the sources to search
      * @param preferredOnTie the source whose match wins if the best matches of both sources score equally
      */
     public Map<String, @Nullable NormdataMatch> bestMatches(List<String> keywords, Set<NormdataSource> sources,
                                                             NormdataSource preferredOnTie) {
-        List<String> distinctKeywords = List.copyOf(new LinkedHashSet<>(keywords));
+        List<String> distinctKeywords = distinctByNormalizedForm(keywords);
         List<List<Future<List<NormdataMatch>>>> futures = new ArrayList<>();
         try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
             for (String keyword : distinctKeywords) {
@@ -77,6 +78,15 @@ public class KeywordMatchService {
             bestMatches.put(distinctKeywords.get(i), matches.stream().min(bestFirst).orElse(null));
         }
         return bestMatches;
+    }
+
+    /** The first keyword of each normalized form, in keyword order. */
+    private static List<String> distinctByNormalizedForm(List<String> keywords) {
+        Map<String, String> firstByNormalizedForm = new LinkedHashMap<>();
+        for (String keyword : keywords) {
+            firstByNormalizedForm.putIfAbsent(MatchingService.normalize(keyword), keyword);
+        }
+        return List.copyOf(firstByNormalizedForm.values());
     }
 
     private List<NormdataMatch> search(String term, NormdataSource source) {

@@ -16,9 +16,3 @@ services:
       - RADAR_TIB_ONTOLOGIES
       - RADAR_MATCHING_MAX_CONCURRENT_REQUESTS
       - JAVA_TOOL_OPTIONS
-    healthcheck:
-      test: ["CMD", "curl", "-fsS", "-o", "/dev/null", "http://localhost:8080/api/keywords/extract"]
-      interval: 30s
-      timeout: 5s
-      start_period: 30s
-      retries: 3

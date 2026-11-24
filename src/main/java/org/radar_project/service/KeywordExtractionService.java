@@ -8,6 +8,7 @@ import org.radar_project.model.NormdataMatch;
 import org.radar_project.model.NormdataSource;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -34,7 +35,9 @@ public class KeywordExtractionService {
 
     /**
      * Returns the best match per keyword, in the order the model returned the keywords. The value is
-     * null if no match was found, a search failed, or the terminology is {@code none}.
+     * null if no match was found, a search failed, or the terminology is {@code none}. With a lookup,
+     * keywords that differ only in their normalized form are returned once (the first variant);
+     * without a lookup ({@code none}) all keywords are returned as extracted.
      *
      * @throws IllegalArgumentException if the request selects a model that is not configured
      * @throws ExternalServiceException if the keyword extraction fails
@@ -46,8 +49,9 @@ public class KeywordExtractionService {
                 ? Map.of()
                 : keywordMatchService.bestMatches(extraction.keywords(), sources, preferredOnTie(extraction.language()));
 
+        Collection<String> keywords = sources.isEmpty() ? extraction.keywords() : matches.keySet();
         Map<String, @Nullable KeywordIri> result = new LinkedHashMap<>();
-        for (String keyword : extraction.keywords()) {
+        for (String keyword : keywords) {
             NormdataMatch match = matches.get(keyword);
             result.put(keyword, match == null ? null : toKeywordIri(match));
         }
