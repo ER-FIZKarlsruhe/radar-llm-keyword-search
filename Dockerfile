@@ -15,7 +15,7 @@ EXPOSE 8080
 #   RADAR_HTTP_PROXY_HOST=           (empty = no proxy for Ollama, GND and TIB)
 #   RADAR_HTTP_PROXY_PORT=8888
 #   RADAR_OLLAMA_BASE_URL=...
-#   RADAR_OLLAMA_MODEL=keyword-extractor
+#   RADAR_OLLAMA_MODELS=keyword-extractor,keyword-extractor1,keyword-extractor2
 #   RADAR_TIB_ONTOLOGIES=chebi,gnd
 # JAVA_TOOL_OPTIONS can be used for JVM settings, e.g. -XX:MaxRAMPercentage=75.
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]

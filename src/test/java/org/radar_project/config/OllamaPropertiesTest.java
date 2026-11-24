@@ -13,31 +13,55 @@ class OllamaPropertiesTest {
             .withUserConfiguration(PropertiesConfiguration.class)
             .withPropertyValues(
                     "radar.ollama.base-url=https://ollama.test/ollama",
-                    "radar.ollama.model=keyword-extractor",
                     "radar.ollama.connect-timeout=1s",
                     "radar.ollama.read-timeout=1s");
 
     @Test
     void bindsPositiveMaxKeywords() {
-        contextRunner.withPropertyValues("radar.ollama.max-keywords=10")
+        contextRunner.withPropertyValues("radar.ollama.max-keywords=10", "radar.ollama.models=keyword-extractor")
                 .run(context -> assertThat(context.getBean(OllamaProperties.class).maxKeywords()).isEqualTo(10));
     }
 
     @Test
+    void bindsSelectableModels() {
+        contextRunner.withPropertyValues("radar.ollama.max-keywords=10",
+                        "radar.ollama.models=keyword-extractor,keyword-extractor1,keyword-extractor2")
+                .run(context -> {
+                    OllamaProperties properties = context.getBean(OllamaProperties.class);
+                    assertThat(properties.models())
+                            .containsExactly("keyword-extractor", "keyword-extractor1", "keyword-extractor2");
+                    assertThat(properties.isSelectable("keyword-extractor2")).isTrue();
+                    assertThat(properties.isSelectable("other")).isFalse();
+                });
+    }
+
+    @Test
+    void rejectsMissingModels() {
+        contextRunner.withPropertyValues("radar.ollama.max-keywords=10")
+                .run(context -> assertThat(context).hasFailed());
+    }
+
+    @Test
+    void rejectsBlankModel() {
+        contextRunner.withPropertyValues("radar.ollama.max-keywords=10", "radar.ollama.models[0]= ")
+                .run(context -> assertThat(context).hasFailed());
+    }
+
+    @Test
     void rejectsZeroMaxKeywords() {
-        contextRunner.withPropertyValues("radar.ollama.max-keywords=0")
+        contextRunner.withPropertyValues("radar.ollama.max-keywords=0", "radar.ollama.models=keyword-extractor")
                 .run(context -> assertThat(context).hasFailed());
     }
 
     @Test
     void rejectsNegativeMaxKeywords() {
-        contextRunner.withPropertyValues("radar.ollama.max-keywords=-1")
+        contextRunner.withPropertyValues("radar.ollama.max-keywords=-1", "radar.ollama.models=keyword-extractor")
                 .run(context -> assertThat(context).hasFailed());
     }
 
     @Test
     void rejectsMissingMaxKeywords() {
-        contextRunner.run(context -> assertThat(context).hasFailed());
+        contextRunner.withPropertyValues("radar.ollama.models=keyword-extractor").run(context -> assertThat(context).hasFailed());
     }
 
     @Configuration(proxyBeanMethods = false)

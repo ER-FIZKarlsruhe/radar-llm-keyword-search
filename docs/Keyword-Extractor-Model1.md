@@ -1,6 +1,7 @@
 FROM qwen3:8b
 
 PARAMETER temperature 0
+PARAMETER num_ctx 16384
 
 SYSTEM """
 Du bist ein Experte für bibliothekarische Sacherschließung,

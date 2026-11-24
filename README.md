@@ -7,6 +7,6 @@
 ## Controllers
 - KeywordController
   - /chat
-    - Call Ollama model radar.ollama.model with Text
+    - Call Ollama model from radar.ollama.models with Text (required per request)
     - Ollama
 

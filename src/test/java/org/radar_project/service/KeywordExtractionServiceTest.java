@@ -31,10 +31,19 @@ class KeywordExtractionServiceTest {
     private final KeywordExtractionService service = new KeywordExtractionService(ollamaService, keywordMatchService);
 
     @Test
-    void returnsKeywordsWithoutLookupForTerminologyNone() {
-        when(ollamaService.extract("Text")).thenReturn(new ExtractionResult("de", List.of("Zeolith", "Katalyse")));
+    void passesSelectedModelToOllama() {
+        when(ollamaService.extract("Text", "keyword-extractor2")).thenReturn(new ExtractionResult("de", List.of("Zeolith")));
 
-        Map<String, KeywordIri> result = service.extract(new ExtractRequest("Text", Terminology.NONE));
+        Map<String, KeywordIri> result = service.extract(new ExtractRequest("Text", Terminology.NONE, "keyword-extractor2"));
+
+        assertThat(result.keySet()).containsExactly("Zeolith");
+    }
+
+    @Test
+    void returnsKeywordsWithoutLookupForTerminologyNone() {
+        when(ollamaService.extract("Text", "keyword-extractor")).thenReturn(new ExtractionResult("de", List.of("Zeolith", "Katalyse")));
+
+        Map<String, KeywordIri> result = service.extract(new ExtractRequest("Text", Terminology.NONE, "keyword-extractor"));
 
         assertThat(result.keySet()).containsExactly("Zeolith", "Katalyse");
         assertThat(result.values()).containsOnlyNulls();
@@ -43,12 +52,12 @@ class KeywordExtractionServiceTest {
 
     @Test
     void defaultsToTerminologyNone() {
-        assertThat(new ExtractRequest("Text", null).terminology()).isEqualTo(Terminology.NONE);
+        assertThat(new ExtractRequest("Text", null, "keyword-extractor").terminology()).isEqualTo(Terminology.NONE);
     }
 
     @Test
     void mapsGndMatchAndKeepsKeywordOrderAndNulls() {
-        when(ollamaService.extract("Text")).thenReturn(new ExtractionResult("de", List.of("Katalyse", "Zeolith")));
+        when(ollamaService.extract("Text", "keyword-extractor")).thenReturn(new ExtractionResult("de", List.of("Katalyse", "Zeolith")));
         Map<String, NormdataMatch> matches = new HashMap<>();
         matches.put("Zeolith", new NormdataMatch(NormdataSource.GND, "4190779-6", "https://d-nb.info/gnd/4190779-6",
                 "Zeolith", "Zeolithe", null, List.of("SubjectHeading"), MatchType.ALTERNATIVE_LABEL, 0.9));
@@ -56,7 +65,7 @@ class KeywordExtractionServiceTest {
         when(keywordMatchService.bestMatches(List.of("Katalyse", "Zeolith"), Set.of(NormdataSource.GND),
                 NormdataSource.GND)).thenReturn(matches);
 
-        Map<String, KeywordIri> result = service.extract(new ExtractRequest("Text", Terminology.GND));
+        Map<String, KeywordIri> result = service.extract(new ExtractRequest("Text", Terminology.GND, "keyword-extractor"));
 
         assertThat(result.keySet()).containsExactly("Katalyse", "Zeolith");
         assertThat(result.get("Katalyse")).isNull();
@@ -66,13 +75,13 @@ class KeywordExtractionServiceTest {
 
     @Test
     void mapsTibMatchAndPrefersTibOnTieForNonGermanText() {
-        when(ollamaService.extract("Text")).thenReturn(new ExtractionResult("en", List.of("zeolite")));
+        when(ollamaService.extract("Text", "keyword-extractor")).thenReturn(new ExtractionResult("en", List.of("zeolite")));
         when(keywordMatchService.bestMatches(List.of("zeolite"), EnumSet.allOf(NormdataSource.class), NormdataSource.TIB))
                 .thenReturn(Map.of("zeolite", new NormdataMatch(NormdataSource.TIB, "CHEBI_48729",
                         "http://purl.obolibrary.org/obo/CHEBI_48729", "zeolite", "zeolite", "chebi", List.of("class"),
                         MatchType.EXACT, 1.0)));
 
-        Map<String, KeywordIri> result = service.extract(new ExtractRequest("Text", Terminology.BOTH));
+        Map<String, KeywordIri> result = service.extract(new ExtractRequest("Text", Terminology.BOTH, "keyword-extractor"));
 
         assertThat(result.get("zeolite")).isEqualTo(new KeywordIri("http://purl.obolibrary.org/obo/CHEBI_48729",
                 "zeolite", "zeolite", "chebi", NormdataSource.TIB, "Other", "http://purl.obolibrary.org/obo/",
@@ -81,10 +90,10 @@ class KeywordExtractionServiceTest {
 
     @Test
     void prefersGndOnTieForGermanText() {
-        when(ollamaService.extract("Text")).thenReturn(new ExtractionResult("de", List.of("Zeolith")));
+        when(ollamaService.extract("Text", "keyword-extractor")).thenReturn(new ExtractionResult("de", List.of("Zeolith")));
         when(keywordMatchService.bestMatches(anyList(), anySet(), any())).thenReturn(Map.of());
 
-        service.extract(new ExtractRequest("Text", Terminology.BOTH));
+        service.extract(new ExtractRequest("Text", Terminology.BOTH, "keyword-extractor"));
 
         verify(keywordMatchService).bestMatches(List.of("Zeolith"), EnumSet.allOf(NormdataSource.class),
                 NormdataSource.GND);
@@ -92,10 +101,10 @@ class KeywordExtractionServiceTest {
 
     @Test
     void searchesOnlyTibForTerminologyTib() {
-        when(ollamaService.extract("Text")).thenReturn(new ExtractionResult("de", List.of("Zeolith")));
+        when(ollamaService.extract("Text", "keyword-extractor")).thenReturn(new ExtractionResult("de", List.of("Zeolith")));
         when(keywordMatchService.bestMatches(anyList(), anySet(), any())).thenReturn(Map.of());
 
-        Map<String, KeywordIri> result = service.extract(new ExtractRequest("Text", Terminology.TIB));
+        Map<String, KeywordIri> result = service.extract(new ExtractRequest("Text", Terminology.TIB, "keyword-extractor"));
 
         verify(keywordMatchService).bestMatches(List.of("Zeolith"), Set.of(NormdataSource.TIB), NormdataSource.GND);
         assertThat(result).containsEntry("Zeolith", null);
@@ -103,13 +112,13 @@ class KeywordExtractionServiceTest {
 
     @Test
     void usesLastIriSegmentWhenTibShortFormIsMissing() {
-        when(ollamaService.extract("Text")).thenReturn(new ExtractionResult("en", List.of("zeolite")));
+        when(ollamaService.extract("Text", "keyword-extractor")).thenReturn(new ExtractionResult("en", List.of("zeolite")));
         when(keywordMatchService.bestMatches(anyList(), anySet(), any()))
                 .thenReturn(Map.of("zeolite", new NormdataMatch(NormdataSource.TIB, null,
                         "http://purl.obolibrary.org/obo/CHEBI_48729", "zeolite", "zeolite", "chebi", List.of(),
                         MatchType.EXACT, 1.0)));
 
-        KeywordIri iri = service.extract(new ExtractRequest("Text", Terminology.TIB)).get("zeolite");
+        KeywordIri iri = service.extract(new ExtractRequest("Text", Terminology.TIB, "keyword-extractor")).get("zeolite");
 
         assertThat(iri.classificationCode()).isEqualTo("CHEBI_48729");
         assertThat(iri.schemeUri()).isEqualTo("http://purl.obolibrary.org/obo/");

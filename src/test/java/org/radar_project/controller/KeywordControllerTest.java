@@ -45,6 +45,7 @@ class KeywordControllerTest {
                 .andExpect(content().string(containsString("<textarea")))
                 .andExpect(content().string(containsString("fetch(\"extract\"")))
                 .andExpect(content().string(containsString("name=\"terminology\"")))
+                .andExpect(content().string(containsString("<select id=\"model\" name=\"model\">")))
                 .andExpect(content().string(not(containsString("fetch(\"match\""))));
         verifyNoInteractions(keywordExtractionService);
     }
@@ -55,10 +56,10 @@ class KeywordControllerTest {
         result.put("Zeolith", new KeywordIri("https://d-nb.info/gnd/4190779-6", "Zeolith", "Zeolith", null,
                 NormdataSource.GND, "GND", "https://d-nb.info/gnd/", "4190779-6"));
         result.put("Katalyse", null);
-        when(keywordExtractionService.extract(new ExtractRequest("Ein Text", Terminology.GND))).thenReturn(result);
+        when(keywordExtractionService.extract(new ExtractRequest("Ein Text", Terminology.GND, "keyword-extractor"))).thenReturn(result);
 
         mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"text\": \"Ein Text\", \"terminology\": \"gnd\"}"))
+                        .content("{\"model\": \"keyword-extractor\", \"text\": \"Ein Text\", \"terminology\": \"gnd\"}"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         {"Zeolith": {"iri": "https://d-nb.info/gnd/4190779-6", "label": "Zeolith",
@@ -74,9 +75,9 @@ class KeywordControllerTest {
         when(keywordExtractionService.extract(any())).thenReturn(Map.of());
 
         mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"text\": \"Ein Text\"}"))
+                        .content("{\"model\": \"keyword-extractor\", \"text\": \"Ein Text\"}"))
                 .andExpect(status().isOk());
-        verify(keywordExtractionService).extract(new ExtractRequest("Ein Text", Terminology.NONE));
+        verify(keywordExtractionService).extract(new ExtractRequest("Ein Text", Terminology.NONE, "keyword-extractor"));
     }
 
     @Test
@@ -85,16 +86,16 @@ class KeywordControllerTest {
 
         for (Terminology terminology : Terminology.values()) {
             mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
-                            .content("{\"text\": \"Ein Text\", \"terminology\": \"" + terminology.value() + "\"}"))
+                            .content("{\"model\": \"keyword-extractor\", \"text\": \"Ein Text\", \"terminology\": \"" + terminology.value() + "\"}"))
                     .andExpect(status().isOk());
-            verify(keywordExtractionService).extract(new ExtractRequest("Ein Text", terminology));
+            verify(keywordExtractionService).extract(new ExtractRequest("Ein Text", terminology, "keyword-extractor"));
         }
     }
 
     @Test
     void extractRejectsUnknownTerminology() throws Exception {
         mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"text\": \"Ein Text\", \"terminology\": \"wikidata\"}"))
+                        .content("{\"model\": \"keyword-extractor\", \"text\": \"Ein Text\", \"terminology\": \"wikidata\"}"))
                 .andExpect(status().isBadRequest());
         verifyNoInteractions(keywordExtractionService);
     }
@@ -104,15 +105,59 @@ class KeywordControllerTest {
         when(keywordExtractionService.extract(any())).thenReturn(Map.of());
 
         mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"text\": \"Ein Text\", \"maxKeywords\": 1}"))
+                        .content("{\"model\": \"keyword-extractor\", \"text\": \"Ein Text\", \"maxKeywords\": 1}"))
                 .andExpect(status().isOk());
-        verify(keywordExtractionService).extract(new ExtractRequest("Ein Text", Terminology.NONE));
+        verify(keywordExtractionService).extract(new ExtractRequest("Ein Text", Terminology.NONE, "keyword-extractor"));
+    }
+
+    @Test
+    void extractPassesSelectedModel() throws Exception {
+        when(keywordExtractionService.extract(any())).thenReturn(Map.of());
+
+        mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"text\": \"Ein Text\", \"model\": \"keyword-extractor2\"}"))
+                .andExpect(status().isOk());
+        verify(keywordExtractionService).extract(new ExtractRequest("Ein Text", Terminology.NONE, "keyword-extractor2"));
+    }
+
+    @Test
+    void extractMapsUnknownModelToBadRequest() throws Exception {
+        when(keywordExtractionService.extract(any())).thenThrow(new IllegalArgumentException("Unknown model"));
+
+        mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"text\": \"Ein Text\", \"model\": \"llama3:70b\"}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail").value("Unknown model"));
+    }
+
+    @Test
+    void extractRejectsMissingModel() throws Exception {
+        mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"text\": \"Ein Text\", \"terminology\": \"gnd\"}"))
+                .andExpect(status().isBadRequest());
+        verifyNoInteractions(keywordExtractionService);
+    }
+
+    @Test
+    void extractRejectsBlankModel() throws Exception {
+        mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"text\": \"Ein Text\", \"model\": \" \"}"))
+                .andExpect(status().isBadRequest());
+        verifyNoInteractions(keywordExtractionService);
+    }
+
+    @Test
+    void extractRejectsTooLongModelName() throws Exception {
+        mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"text\": \"Ein Text\", \"model\": \"" + "m".repeat(201) + "\"}"))
+                .andExpect(status().isBadRequest());
+        verifyNoInteractions(keywordExtractionService);
     }
 
     @Test
     void extractRejectsBlankText() throws Exception {
         mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"text\": \" \", \"terminology\": \"gnd\"}"))
+                        .content("{\"model\": \"keyword-extractor\", \"text\": \" \", \"terminology\": \"gnd\"}"))
                 .andExpect(status().isBadRequest());
         verifyNoInteractions(keywordExtractionService);
     }
@@ -122,7 +167,7 @@ class KeywordControllerTest {
         when(keywordExtractionService.extract(any())).thenThrow(new ExternalServiceException("Ollama request failed"));
 
         mockMvc.perform(post("/api/keywords/extract").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"text\": \"Text\"}"))
+                        .content("{\"model\": \"keyword-extractor\", \"text\": \"Text\"}"))
                 .andExpect(status().isBadGateway())
                 .andExpect(jsonPath("$.detail").value("Ollama request failed"));
     }

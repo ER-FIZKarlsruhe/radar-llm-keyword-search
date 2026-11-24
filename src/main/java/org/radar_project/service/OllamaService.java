@@ -60,11 +60,14 @@ public class OllamaService {
     /**
      * Extracts keywords from the given text, limited to {@code radar.ollama.max-keywords} entries.
      *
-     * @param text the text to extract keywords from
+     * @param text  the text to extract keywords from
+     * @param model the model to use; must be one of {@code radar.ollama.models}
+     * @throws IllegalArgumentException if the model is not configured as selectable
      * @throws ExternalServiceException if Ollama fails or returns no valid keyword JSON
      */
-    public ExtractionResult extract(String text) {
-        String content = chat(text);
+    public ExtractionResult extract(String text, String model) {
+        requireSelectable(model);
+        String content = chat(text, model);
         ExtractionResult result;
         try {
             result = jsonMapper.readValue(content, ExtractionResult.class);
@@ -78,9 +81,16 @@ public class OllamaService {
         return new ExtractionResult(result.language(), keywords);
     }
 
-    private String chat(String text) {
+    /** Only configured models may be used, so that clients cannot make Ollama load arbitrary models. */
+    private void requireSelectable(String model) {
+        if (!properties.isSelectable(model)) {
+            throw new IllegalArgumentException("Unknown model");
+        }
+    }
+
+    private String chat(String text, String model) {
         Map<String, Object> request = Map.of(
-                "model", properties.model(),
+                "model", model,
                 "stream", false,
                 "think", false,
                 "format", RESPONSE_SCHEMA,

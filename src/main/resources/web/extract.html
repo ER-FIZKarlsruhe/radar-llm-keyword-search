@@ -26,6 +26,14 @@
 <form id="extract-form">
     <label for="text">Text</label>
     <textarea id="text" name="text" required maxlength="100000"></textarea>
+    <p>
+        <label for="model">Modell</label>
+        <select id="model" name="model">
+            <option value="keyword-extractor" selected>keyword-extractor</option>
+            <option value="keyword-extractor1">keyword-extractor1</option>
+            <option value="keyword-extractor2">keyword-extractor2</option>
+        </select>
+    </p>
     <fieldset>
         <legend>Normdaten-Abgleich</legend>
         <label><input type="radio" name="terminology" value="none" checked> keiner</label>
@@ -123,6 +131,7 @@
             return;
         }
         const terminology = form.querySelector("input[name=terminology]:checked").value;
+        const model = document.getElementById("model").value;
         submit.disabled = true;
         result.hidden = true;
         showStatus(terminology === "none" ? "Extrahiere Keywords …" : "Extrahiere Keywords und gleiche Normdaten ab …", false);
@@ -131,7 +140,7 @@
             const response = await fetch("extract", {
                 method: "POST",
                 headers: {"Content-Type": "application/json", "Accept": "application/json"},
-                body: JSON.stringify({text: text, terminology: terminology})
+                body: JSON.stringify({text: text, terminology: terminology, model: model})
             });
             const body = await response.json().catch(() => null);
             if (!response.ok) {

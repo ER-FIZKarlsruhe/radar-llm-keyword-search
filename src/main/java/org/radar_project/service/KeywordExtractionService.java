@@ -36,10 +36,11 @@ public class KeywordExtractionService {
      * Returns the best match per keyword, in the order the model returned the keywords. The value is
      * null if no match was found, a search failed, or the terminology is {@code none}.
      *
+     * @throws IllegalArgumentException if the request selects a model that is not configured
      * @throws ExternalServiceException if the keyword extraction fails
      */
     public Map<String, @Nullable KeywordIri> extract(ExtractRequest request) {
-        ExtractionResult extraction = ollamaService.extract(request.text());
+        ExtractionResult extraction = ollamaService.extract(request.text(), request.model());
         Set<NormdataSource> sources = request.terminology().sources();
         Map<String, @Nullable NormdataMatch> matches = sources.isEmpty()
                 ? Map.of()

@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * Maps failures of external services to 502 Bad Gateway without exposing internal details.
+ * Maps failures of external services to 502 Bad Gateway without exposing internal details,
+ * and invalid request values (e.g. an unconfigured model) to 400 Bad Request.
  */
 @RestControllerAdvice
 public class ApiExceptionHandler {
@@ -20,5 +21,10 @@ public class ApiExceptionHandler {
     ProblemDetail handleExternalServiceException(ExternalServiceException e) {
         log.warn("{}: {}", e.getMessage(), e.getCause() == null ? "-" : e.getCause().getMessage());
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_GATEWAY, e.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    ProblemDetail handleIllegalArgumentException(IllegalArgumentException e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 }
