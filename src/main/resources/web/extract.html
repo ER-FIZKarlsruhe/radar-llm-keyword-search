@@ -24,21 +24,10 @@
 </head>
 <body>
 <h1>Keyword-Extraktion</h1>
-<a href="https://dev-tc.fiz-karlsruhe.de/products">MIH Test</a>
-<a href="https://dev-tc.fiz-karlsruhe.de/products/all/home.html">MIH Test1</a>
-<a href="http://localhost:8090/products">MIH Test2</a>
-<a href="http://localhost:8090/products/all/home.html">MIH Test3</a>
 <form id="extract-form">
+    <input type="hidden" name="model" value="keyword-extractor">
     <label for="text">Text</label>
     <textarea id="text" name="text" required maxlength="100000"></textarea>
-    <p>
-        <label for="model">Modell</label>
-        <select id="model" name="model">
-            <option value="keyword-extractor" selected>keyword-extractor</option>
-            <option value="keyword-extractor1">keyword-extractor1</option>
-            <option value="keyword-extractor2">keyword-extractor2</option>
-        </select>
-    </p>
     <fieldset>
         <legend>Normdaten-Abgleich</legend>
         <label><input type="radio" name="terminology" value="none" checked> keiner</label>
