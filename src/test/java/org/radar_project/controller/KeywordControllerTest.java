@@ -45,7 +45,7 @@ class KeywordControllerTest {
                 .andExpect(content().string(containsString("<textarea")))
                 .andExpect(content().string(containsString("fetch(\"extract\"")))
                 .andExpect(content().string(containsString("name=\"terminology\"")))
-                .andExpect(content().string(containsString("<select id=\"model\" name=\"model\">")))
+                .andExpect(content().string(containsString("<input type=\"hidden\" id=\"model\" name=\"model\" value=\"keyword-extractor\">")))
                 .andExpect(content().string(not(containsString("fetch(\"match\""))));
         verifyNoInteractions(keywordExtractionService);
     }
