@@ -32,11 +32,16 @@ public class GndService {
      */
     public List<NormdataCandidate> search(String term) {
         SearchResponse response = restClient.get()
-                .uri(builder -> builder.path("/search")
-                        .queryParam("q", "{q}")
-                        .queryParam("format", "json")
-                        .queryParam("size", properties.maxResults())
-                        .build(escapeLucene(term)))
+                .uri(builder -> {
+                    builder.path("/search")
+                            .queryParam("q", "{q}")
+                            .queryParam("format", "json")
+                            .queryParam("size", properties.maxResults());
+                    if (properties.filter().isEmpty()) {
+                        return builder.build(escapeLucene(term));
+                    }
+                    return builder.queryParam("filter", "{filter}").build(escapeLucene(term), properties.filter());
+                })
                 .retrieve()
                 .body(SearchResponse.class);
         if (response == null || response.member() == null) {

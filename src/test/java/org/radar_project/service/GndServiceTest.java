@@ -32,7 +32,7 @@ class GndServiceTest {
         RestClient.Builder builder = RestClient.builder().baseUrl("https://gnd.test/gnd");
         server = MockRestServiceServer.bindTo(builder).build();
         gndService = new GndService(builder.build(),
-                new GndProperties("https://gnd.test/gnd", 5, Duration.ofSeconds(1), Duration.ofSeconds(1)));
+                new GndProperties("https://gnd.test/gnd", 5, null, Duration.ofSeconds(1), Duration.ofSeconds(1)));
     }
 
     @Test
@@ -64,6 +64,28 @@ class GndServiceTest {
                 .andRespond(withSuccess("{\"member\": []}", MediaType.APPLICATION_JSON));
 
         assertThat(gndService.search("Vitamin A-Säure (topisch)")).isEmpty();
+        server.verify();
+    }
+
+    @Test
+    void sendsConfiguredTypeFilter() {
+        RestClient.Builder builder = RestClient.builder().baseUrl("https://gnd.test/gnd");
+        MockRestServiceServer filterServer = MockRestServiceServer.bindTo(builder).build();
+        GndService filteringService = new GndService(builder.build(), new GndProperties("https://gnd.test/gnd", 5,
+                "NOT type:Work", Duration.ofSeconds(1), Duration.ofSeconds(1)));
+        filterServer.expect(requestTo("https://gnd.test/gnd/search?q=Faust&format=json&size=5&filter=NOT%20type%3AWork"))
+                .andRespond(withSuccess("{\"member\": []}", MediaType.APPLICATION_JSON));
+
+        assertThat(filteringService.search("Faust")).isEmpty();
+        filterServer.verify();
+    }
+
+    @Test
+    void omitsFilterWhenNotConfigured() {
+        server.expect(requestTo("https://gnd.test/gnd/search?q=Faust&format=json&size=5"))
+                .andRespond(withSuccess("{\"member\": []}", MediaType.APPLICATION_JSON));
+
+        assertThat(gndService.search("Faust")).isEmpty();
         server.verify();
     }
 
