@@ -1,0 +1,742 @@
+Expert consensus statements for the management of COVID-19-related acute respiratory failure using a Delphi
+method.
+
+BACKGROUND
+Coronavirus disease 2019 (COVID-19) pandemic has caused unprecedented pressure on healthcare system globally.
+Lack of high-quality evidence on the respiratory management of COVID-19-related acute respiratory failure
+(C-ARF) has resulted in wide variation in clinical practice.
+
+
+METHODS
+Using a Delphi process, an international panel of 39 experts developed clinical practice statements on the
+respiratory management of C-ARF in areas where evidence is absent or limited. Agreement was defined as
+achieved when > 70% experts voted for a given option on the Likert scale statement or > 80% voted for a
+particular option in multiple-choice questions. Stability was assessed between the two concluding rounds for
+each statement, using the non-parametric Chi-square (χ2) test (p < 0·05 was considered as unstable).
+
+
+RESULTS
+Agreement was achieved for 27 (73%) management strategies which were then used to develop expert clinical
+practice statements. Experts agreed that COVID-19-related acute respiratory distress syndrome (ARDS) is
+clinically similar to other forms of ARDS. The Delphi process yielded strong suggestions for use of systemic
+corticosteroids for critical COVID-19; awake self-proning to improve oxygenation and high flow nasal oxygen to
+potentially reduce tracheal intubation; non-invasive ventilation for patients with mixed hypoxemic-hypercapnic
+respiratory failure; tracheal intubation for poor mentation, hemodynamic instability or severe hypoxemia;
+closed suction systems; lung protective ventilation; prone ventilation (for 16-24 h per day) to improve
+oxygenation; neuromuscular blocking agents for patient-ventilator dyssynchrony; avoiding delay in extubation
+for the risk of reintubation; and similar timing of tracheostomy as in non-COVID-19 patients. There was no
+agreement on positive end expiratory pressure titration or the choice of personal protective equipment.
+
+
+CONCLUSION
+Using a Delphi method, an agreement among experts was reached for 27 statements from which 20 expert clinical
+practice statements were derived on the respiratory management of C-ARF, addressing important decisions for
+patient management in areas where evidence is either absent or limited.
+
+
+TRIAL REGISTRATION
+The study was registered with Clinical trials.gov Identifier: NCT04534569.
+
+---
+
+Retrospective follow-up analysis of the transcriptomic patterns of cytokines, cytokine receptors and
+chemokines at preconception and during pregnancy, in women with post-partum depression.
+
+Post-partum depression (PPD) occurs in approximately 20% of women usually early following child delivery. PPD
+represents an important unmet medical need as it is frequently underdiagnosed and, as the neurobiology of the
+disease is limitedly known, no pathogenic-tailored approach is available and only symptomatic medications are
+used. In the present study, we carried out a DNA microarray analysis to evaluate the fluctuation of cytokines,
+cytokine receptors and chemokines during the preconception period, the 1st and 3th trimester of pregnancy and
+the early post-partum period. The data demonstrated that, as compared to always-depressed patients and
+euthymic controls, women who developed PPD exhibited significant fluctuations in the levels of different
+cytokines and cytokine receptors, primarily related to tumor necrosis factor (TNF) and interleukin (IL)18.
+These data emphasize the role of the immune system in PPD. However, additional studies aimed at evaluating if
+and how these functional modifications of the immune system during pregnancy are related to the development of
+PPD warranted to confirm our findings.
+
+---
+
+Comparison of Two Phototherapy Methods (Prophylactic vs Therapeutic) for Management of Hyperbilirubinemia in
+Very Low Birth Weight Newborns.
+
+OBJECTIVE
+Preterm and low birth weight (LBW) infants are at greater risk of developing bilirubin-associated brain damage
+compared with term infants. Certainly, phototherapy, if used appropriately, is capable of controlling the
+bilirubin levels in LBW infants; but there is not a unique phototherapy treatment strategy in LBW infants.
+This study was designed to compare the prophylactic phototherapy and late treatment of jaundiced newborns
+weighing 1000-1500 grams.
+
+
+METHODS
+Sixty newborns with birth weight 1000-1500 g were studied. They were divided into two groups: the
+"Prophylactic" group, in which phototherapy started within six hours after birth and continued for at least 96
+hours, and the "Treatment" group, which received phototherapy when indicated according to birth weight and
+suspended when bilirubin level fell below 50% of bilirubin level for blood exchange. Mean value of daily
+transcutaneous bilirubin (TCB), duration of phototherapy, the need for blood exchange, and the highest TCB
+value in both groups were analyzed.
+
+
+FINDINGS
+In the prophylactic group, the highest daily mean rate of TCB was 7.71±1.84 mg/dl, which happened on the third
+day. In the treatment group, it was 8.74±1.72 mg/dl on the fourth day after birth. The TCB values in
+prophylactic group were significantly less than those of the treatment group only on the fourth and fifth days
+after birth (P<0.001). Although the median duration of phototherapy in the treatment group was shorter than
+that of the prophylactic group (137.60±57.39 vs 168.71±88.01 hours, respectively), this difference was not
+statistically significant. Only one neonate needed blood exchange in the treatment group.
+
+
+CONCLUSION
+The prophylactic phototherapy treatment for babies weighing 1000-1500 g significantly decreases bilirubin
+levels on the fourth and fifth days after birth but the clinical course of hyperbilirubinemia does not alter
+in LBW infant, as indicated by the non-significant change in the duration of phototherapy.
+
+---
+
+The PredictAD project: development of novel biomarkers and analysis software for early diagnosis of the
+Alzheimer's disease.
+
+Alzheimer's disease (AD) is the most common cause of dementia affecting 36 million people worldwide. As the
+demographic transition in the developed countries progresses towards older population, the worsening ratio of
+workers per retirees and the growing number of patients with age-related illnesses such as AD will challenge
+the current healthcare systems and national economies. For these reasons AD has been identified as a health
+priority, and various methods for diagnosis and many candidates for therapies are under intense research. Even
+though there is currently no cure for AD, its effects can be managed. Today the significance of early and
+precise diagnosis of AD is emphasized in order to minimize its irreversible effects on the nervous system.
+When new drugs and therapies enter the market it is also vital to effectively identify the right candidates to
+benefit from these. The main objective of the PredictAD project was to find and integrate efficient biomarkers
+from heterogeneous patient data to make early diagnosis and to monitor the progress of AD in a more efficient,
+reliable and objective manner. The project focused on discovering biomarkers from biomolecular data,
+electrophysiological measurements of the brain and structural, functional and molecular brain images. We also
+designed and built a statistical model and a framework for exploiting these biomarkers with other available
+patient history and background data. We were able to discover several potential novel biomarker candidates and
+implement the framework in software. The results are currently used in several research projects, licensed to
+commercial use and being tested for clinical use in several trials.
+
+---
+
+Radiosynovectomy in haemophilic synovitis of elbows and ankles: Is the effectiveness of yttrium-90 and
+rhenium-186 different?
+
+BACKGROUND
+Radiosynovectomy (RS) reduces the number of haemarthroses and the synovial size in chronic haemophilic
+synovitis. The purpose of this study was to quantitatively compare the effectiveness of two types of RS
+(yttrium-90 vs. rhenium-186) in terms of the objective improvement of haemarthroses and synovial size.
+
+
+METHODS
+Seventy RSs were performed in 70 joints (44 elbows, 26 ankles) of 70 haemophiliacs diagnosed with chronic
+synovitis. Yttrium-90 was used in 21 joints and rhenium-186 was used in 49 joints. The mean patient age was
+20.61 years.
+
+
+RESULTS
+RS resulted in significant improvement in the three variables studied (six months before RS vs. six months
+after RS), namely in the number of episodes of haemarthrosis (67.8% improvement); the size of the synovium as
+measured by means of a clinical scale (43.8% improvement) and imaging techniques in millimetres (26.7%
+improvement). We did not find significant statistical differences between yttrium-90 and rhenium-186 regarding
+their efficacy. No correlation was found between the results and other variables: age, joint (ankle or elbow),
+presence or absence of radiological involvement, type of haemophilia (A or B), grade of haemophilia (mild,
+moderate or severe), previous haematological treatment (on demand or prophylaxis), and the presence or absence
+of inhibitor
+
+
+CONCLUSIONS
+Yttrium-90 RS and rhenium-186 RS were equally effective in reducing the number of haemarthroses and the size
+of the synovium in ankles and elbows in the short-term (6 months). No correlation was found between the
+results and other patients' characteristics.
+
+---
+
+Distributional learning for speech reflects cumulative exposure to a talker's phonetic distributions.
+
+Efficient speech perception requires listeners to maintain an exquisite tension between stability of the
+language architecture and flexibility to accommodate variation in the input, such as that associated with
+individual talker differences in speech production. Achieving this tension can be guided by top-down learning
+mechanisms, wherein lexical information constrains interpretation of speech input, and by bottom-up learning
+mechanisms, in which distributional information in the speech signal is used to optimize the mapping to speech
+sound categories. An open question for theories of perceptual learning concerns the nature of the
+representations that are built for individual talkers: do these representations reflect long-term, global
+exposure to a talker or rather only short-term, local exposure? Recent research suggests that when lexical
+knowledge is used to resolve a talker's ambiguous productions, listeners disregard previous experience with a
+talker and instead rely on only recent experience, a finding that is contrary to predictions of Bayesian
+belief-updating accounts of perceptual adaptation. Here we use a distributional learning paradigm in which
+lexical information is not explicitly required to resolve ambiguous input to provide an additional test of
+global versus local exposure accounts. Listeners completed two blocks of phonetic categorization for stimuli
+that differed in voice-onset-time, a probabilistic cue to the voicing contrast in English stop consonants. In
+each block, two distributions were presented, one specifying /g/ and one specifying /k/. Across the two
+blocks, variance of the distributions was manipulated to be either narrow or wide. The critical manipulation
+was order of the two blocks; half of the listeners were first exposed to the narrow distributions followed by
+the wide distributions, with the order reversed for the other half of the listeners. The results showed that
+for earlier trials, the identification slope was steeper for the narrow-wide group compared to the wide-narrow
+group, but this difference was attenuated for later trials. The between-group convergence was driven by an
+asymmetry in learning between the two orders such that only those in the narrow-wide group showed slope
+movement during exposure, a pattern that was mirrored by computational simulations in which the distributional
+statistics of the present talker were integrated with prior experience with English. This pattern of results
+suggests that listeners did not disregard all prior experience with the talker, and instead used cumulative
+exposure to guide phonetic decisions, which raises the possibility that accommodating a talker's phonetic
+signature entails maintaining representations that reflect global experience.
+
+---
+
+Long-term mortality of patients discharged from the hospital after successful critical care in the ICU in
+Korea: a retrospective observational study in a single tertiary care teaching hospital.
+
+BACKGROUND
+The long-term outcomes of patients discharged from the hospital after successful care in intensive care unit
+(ICU) are not briskly evaluated in Korea. The aim of this study was to assess long-term mortality of patients
+treated in the ICU and discharged alive from the hospital and to identify predictive factors of mortality.
+
+
+METHODS
+In 3,679 adult patients discharged alive from the hospital after ICU care between 2006 and 2011, the 1-year
+mortality rate (primary outcome measure) was investigated. Various factors were entered into multivariate
+analysis to identify independent factors of 1-year mortality, including sex, age, severity of illness (APACHE
+II score), mechanical ventilation, malignancy, readmission, type of admission (emergency, elective surgery,
+and medical), and diagnostic category (trauma and non-trauma).
+
+
+RESULTS
+The 1-year mortality rate was 13.4%. Risk factors that were associated with 1-year mortality included age
+(hazard ratio: 1.03 [95% CI, 1.02-1.04], P < 0.001), APACHE II score (1.03 [1.01-1.04], P < 0.001), mechanical
+ventilation (1.96 [1.60-2.41], P < 0.001), malignancy (2.31 [1.82-2.94], P < 0.001), readmission (1.65
+[1.31-2.07], P < 0.001), emergency surgery (1.66 [1.18-2.34], P = 0.003), ICU admission due to medical causes
+(4.66 [3.68-5.91], P < 0.001), and non-traumatic diagnostic category (6.04 [1.50-24.38], P = 0.012).
+
+
+CONCLUSIONS
+The 1-year mortality rate was 13.4%. Old age, high APACHE II score, mechanical ventilation, malignancy,
+readmission, emergency surgery, ICU admission due to medical causes, and non-traumatic diagnostic category
+except metabolic/endocrinologic category were associated with 1-year mortality.
+
+---
+
+Retention prediction in reversed phase high performance liquid chromatography using quantitative
+structure-retention relationships applied to the Hydrophobic Subtraction Model.
+
+Quantitative Structure-Retention Relationships (QSRR) methodology combined with the Hydrophobic Subtraction
+Model (HSM) have been utilized to accurately predict retention times for a selection of analytes on several
+different reversed phase liquid chromatography (RPLC) columns. This approach is designed to facilitate early
+prediction of co-elution of analytes, for example in pharmaceutical drug discovery applications where it is
+advantageous to predict whether impurities might be co-eluted with the active drug component. The QSRR model
+utilized VolSurf+ descriptors and a Partial Least Squares regression combined with a Genetic Algorithm
+(GA-PLS) to predict the solute coefficients in the HSM. It was found that only the hydrophobicity (η'H) term
+in the HSM was required to give the accuracy necessary to predict potential co-elution of analytes. Global
+QSRR models derived from all 148 compounds in the dataset were compared to QSRR models derived using a range
+of local modelling techniques based on clustering of compounds in the dataset by the structural similarity of
+compounds (as represented by the Tanimoto similarity index), physico-chemical similarity of compounds
+(represented by log D), the neutral, acidic, or basic nature of the compound, and the second dominant
+interaction between analyte and stationary phase after hydrophobicity. The global model showed reasonable
+prediction accuracy for retention time with errors of 30 s and less for up to 50% of modeled compounds. The
+local models for Tanimoto, nature of the compound and second dominant interaction approaches all exhibited
+prediction errors less than 30 s in retention time for nearly 70% of compounds for which models could be
+derived. Predicted retention times of five representative compounds on nine reversed-phase columns were
+compared with known experimental retention data for these columns and this comparison showed that the accuracy
+of the proposed modelling approach is sufficient to reliably predict the retention times of analytes based
+only on their chemical structures.
+
+---
+
+Fabrication of fluorescent labeled ginseng polysaccharide nanoparticles for bioimaging and their
+immunomodulatory activity on macrophage cell lines.
+
+Polysaccharides are a major active component of American ginseng root showing various biological activities
+including anti-carcinogenic, anti-aging, immunostimulatory and antioxidant effects. Although their biological
+activity has been reported by several groups, no research has explored their cellular uptake and
+biodistribution, owing to the lack of suitable detection techniques in living cells. This work examines a
+novel, simple and efficient fluorescent labeling procedure of ginseng polysaccharides (PS), in order to
+examine their cellular distribution using confocal microscopy. This procedure utilized a one-pot strategy with
+fluorescein-5-thiosemicarbazide (FTSC) to introduce a thiosemicarbazide group onto the aldehyde group at the
+reducing saccharide end to form a stable amino derivative through reductive amination. This
+polysaccharide-FTSC derivative was then characterized by GPC, UV, FTIR, photoluminescence and fluorescence
+microscopy to confirm attachment and any structural changes. The results demonstrated that the labeled ginseng
+PS nanostructure showed high fluorescence with minimal changes in PS molecular weight. The labeled PS
+exhibited almost no cytotoxicity effect against tumor induced macrophage cell lines (RAW 264.7) while
+retaining high immunostimulating activity similar to the non-labeled ginseng PS. Therefore, the developed
+approach provides a convenient and highly efficient fluorescent labeling procedure for understanding the
+mechanism of ginseng PS uptake in macrophage cell lines.
+
+---
+
+Speech production in Mandarin-speaking children with cochlear implants: a systematic review.
+
+OBJECTIVE
+This study aimed to systematically review and critically appraise the literature describing the phonetic
+characteristics and accuracy of the consonants, vowels and tones produced by Mandarin-speaking children with
+cochlear implants (CIs).
+
+
+DESIGN
+The protocol in this review was designed in conformity with the Preferred Reporting Items for Systematic
+Reviews and Meta-Analyses (PRISMA) statement. EBSCOhost, PubMed, Scopus, PsycINFO, ProQuest Central databases
+were searched for relevant articles which met the inclusion criteria.
+
+
+STUDY SAMPLE
+A total of 18 journal papers were included in this review.
+
+
+RESULTS
+The results revealed that Mandarin-speaking children with CIs perform consistently more poorly in their
+production of consonants, in particular on fricatives, have a smaller and less well-defined vowel space, and
+exhibit greater difficulties in tone realisation, notably T2 and T3, when compared to their normal-hearing
+(NH) peers. The results from acoustic and accuracy analyses are negatively correlated with CI implantation
+age, but largely positively correlated with hearing age.
+
+
+CONCLUSIONS
+Findings of this review highlight the factors that influence consonant, vowel and tone production in
+Mandarin-speaking children with CIs, thereby providing critical information for clinicians and researchers
+working with this population.
+
+---
+
+Spontaneous alternation behavior in larval zebrafish.
+
+Spontaneous alternation behavior (SAB) describes the tendency of animals to alternate their turn direction in
+consecutive turns. SAB, unlike other mnestic tasks, does not require any prior training or reinforcement.
+Because of its close correlation with the development and function of the hippocampus in mice, it is thought
+to reflect a type of memory. Adult zebrafish possess a hippocampus-like structure utilizing the same
+neurotransmitters as in human brains, and have thus been used to study memory. In the current study, we
+established SAB in zebrafish larvae at 6 days post-fertilization using a custom-made forced-turn maze with a
+rate of 57%. Our demonstration of the presence of SAB in larval zebrafish at a very early developmental stage
+not only provides evidence for early cognition in this species but also suggests its future usefulness as a
+high-throughput model for mnestic studies.
+
+---
+
+Diet and risk of gastro-oesophageal reflux disease in the Melbourne Collaborative Cohort Study.
+
+OBJECTIVE
+To examine associations between diet and risk of developing gastro-oesophageal reflux disease (GERD).
+
+
+DESIGN
+Prospective cohort with a median follow-up of 15·8 years. Baseline diet was measured using a FFQ. GERD was
+defined as self-reported current or history of daily heartburn or acid regurgitation beginning at least 2
+years after baseline. Sex-specific logistic regressions were performed to estimate OR for GERD associated with
+diet quality scores and intakes of nutrients, food groups and individual foods and beverages. The effect of
+substituting saturated fat for monounsaturated or polyunsaturated fat on GERD risk was examined.
+
+
+SETTING
+Melbourne, Australia.
+
+
+PARTICIPANTS
+A cohort of 20 926 participants (62 % women) aged 40-59 years at recruitment between 1990 and 1994.
+
+
+RESULTS
+For men, total fat intake was associated with increased risk of GERD (OR 1·05 per 5 g/d; 95 % CI 1·01, 1·09; P
+= 0·016), whereas total carbohydrate (OR 0·89 per 30 g/d; 95 % CI 0·82, 0·98; P = 0·010) and starch intakes
+(OR 0·84 per 30 g/d; 95 % CI 0·75, 0·94; P = 0·005) were associated with reduced risk. Nutrients were not
+associated with risk for women. For both sexes, substituting saturated fat for polyunsaturated or
+monounsaturated fat did not change risk. For both sexes, fish, chicken, cruciferous vegetables and carbonated
+beverages were associated with increased risk, whereas total fruit and citrus were associated with reduced
+risk. No association was observed with diet quality scores.
+
+
+CONCLUSIONS
+Diet is a possible risk factor for GERD, but food considered as triggers of GERD symptoms might not
+necessarily contribute to disease development. Potential differential associations for men and women warrant
+further investigation.
+
+---
+
+In vivo cholinergic basal forebrain degeneration and cognition in Parkinson's disease: Imaging results from
+the COPPADIS study.
+
+INTRODUCTION
+We aimed to assess associations between multimodal neuroimaging measures of cholinergic basal forebrain (CBF)
+integrity and cognition in Parkinson's disease (PD) without dementia.
+
+
+METHODS
+The study included a total of 180 non-demented PD patients and 45 healthy controls, who underwent structural
+MRI acquisitions and standardized neurocognitive assessment through the PD-Cognitive Rating Scale (PD-CRS)
+within the multicentric COPPADIS-2015 study. A subset of 73 patients also had Diffusion Tensor Imaging (DTI)
+acquisitions. Volumetric and microstructural (mean diffusivity, MD) indices of CBF degeneration were
+automatically extracted using a stereotactic CBF atlas. For comparison, we also assessed multimodal indices of
+hippocampal degeneration. Associations between imaging measures and cognitive performance were assessed using
+linear models.
+
+
+RESULTS
+Compared to controls, CBF volume was not significantly reduced in PD patients as a group. However, across PD
+patients lower CBF volume was significantly associated with lower global cognition (PD-CRStotal: r = 0.37,
+p < 0.001), and this association remained significant after controlling for several potential confounding
+variables (p = 0.004). Analysis of individual item scores showed that this association spanned executive and
+memory domains. No analogue cognition associations were observed for CBF MD. In covariate-controlled models,
+hippocampal volume was not associated with cognition in PD, but there was a significant association for
+hippocampal MD (p = 0.02).
+
+
+CONCLUSIONS
+Early cognitive deficits in PD without dementia are more closely related to structural MRI measures of CBF
+degeneration than hippocampal degeneration. In our multicentric imaging acquisitions, DTI-based diffusion
+measures in the CBF were inferior to standard volumetric assessments for capturing cognition-relevant changes
+in non-demented PD.
+
+---
+
+Mechanisms involved in the antinociceptive and anti-inflammatory effects of a new triazole derivative:
+5-[1-(4-fluorophenyl)-1H-1,2,3-triazol-4-yl]-1H-tetrazole (LQFM-096).
+
+The aim of this study was to design, synthesize and evaluate the potential analgesic and anti-inflammatory
+effects of 5-[1-(4-fluorphenyl)-1H-1,2,3-triazol-4-yl]-1H-tetrazole-(LQFM-096: a new triazole compound) as
+well as to elucidate its possible mechanisms of action. The oral administration of LQFM-096 (10, 20 or
+40 mg/kg) decreased the number of writhing in mice. At the dose of 20 mg/kg, LQFM-096 reduced the licking time
+at both neurogenic and inflammatory phases of the formalin test. Pretreatment with naloxone (3 mg/kg) and
+glibenclamide (3 mg/kg) attenuated the antinociceptive effect of LQFM-096 in the first phase of the formalin
+test. At the dose of 20 mg/kg, LQFM-096 also decreased the licking time in the acidified saline-induced and
+capsaicin-induced nociception. This effect was blocked by naloxone (3 mg/kg) pretreatment prior to the
+administration of LQFM-096. In addition, LQFM-096 inhibited hyperalgesia induced by carrageenan and PGE2.
+Naloxone (3 mg/kg) attenuated the effect of LQFM-096 through disinhibition of PGE2-induced hyperalgesia. The
+anti-inflammatory effect of LQFM-096 was demonstrated in carrageenan-induced oedema or pleurisy as well as
+CFA-induced arthritis. The hyperalgesia and cellular migration in CFA-induced arthritis were reduced
+significantly. Altogether, these findings suggest antinociceptive effect of LQFM-096 and implicate the
+modulation of ASICs/TRPV1 channels by opioid/KATP pathway. The anti-inflammatory effect of LQFM-096 was
+mediated by a reduction in oedema, leukocytes migration, TNF-α, PGE2 levels and myeloperoxidase activity.
+
+---
+
+Does ovarian reserve predict egg quality in unstimulated therapeutic donor insemination cycles?
+
+OBJECTIVE
+To compare reproductive outcomes of patients with very low, low, normal, and high antral follicle counts
+undergoing unstimulated therapeutic donor insemination (TDI) cycles.
+
+
+DESIGN
+Retrospective cohort study.
+
+
+SETTING
+University-affiliated regional fertility clinic.
+
+
+PATIENT(S)
+Four hundred fifty-nine patients who had 1,107 TDI treatment cycles from January 2006 to December 2013.
+
+
+INTERVENTION(S)
+Unstimulated therapeutic donor insemination.
+
+
+MAIN OUTCOME MEASURE(S)
+Clinical pregnancy rates and miscarriage rates as surrogate markers for oocyte quality.
+
+
+RESULT(S)
+The overall pregnancy rate per cycle start was 12.46% in the study population. There was no difference in
+per-cycle or cumulative pregnancy rates among patients with very low, low, average, or high antral follicle
+counts within each patient age group of ≤35, 36-39, and ≥40 years. The overall miscarriage rate per pregnancy
+was 13.61%. When stratified by patient age, there was no correlation between miscarriage rate and antral
+follicle count.
+
+
+CONCLUSION(S)
+AFC is not a predictor of pregnancy or miscarriage rates in patients undergoing unstimulated TDI.
+
+---
+
+A mechanistic overview of herbal medicine and botanical compounds to target transcriptional factors in Breast
+cancer.
+
+The abnormalities of transcription factors, such as NF-κB, STAT, estrogen receptor, play a critical role in
+the initiation and progression of breast cancer. Due to the limitation of current treatment, transcription
+factors could be promising therapeutic targets, which have received close attention. In this review, we
+introduced herbal medicines, as well as botanical compounds that had been verified with anti-tumor properties
+via regulating transcription factors. Herbs, compounds, as well as formulae reported with various
+transcriptional targets, were summarized thoroughly, to provide implication for the future research on basic
+experiment and clinical application.
+
+---
+
+Reprogramming the metabolome rescues retinal degeneration.
+
+Metabolomics studies in the context of ophthalmology have largely focused on identifying metabolite
+concentrations that characterize specific retinal diseases. Studies involving mass spectrometry (MS) and
+nuclear magnetic resonance (NMR) spectroscopy have shown that individuals suffering from retinal diseases
+exhibit metabolic profiles that markedly differ from those of control individuals, supporting the notion that
+metabolites may serve as easily identifiable biomarkers for specific conditions. An emerging branch of
+metabolomics resulting from biomarker studies, however, involves the study of retinal metabolic dysfunction as
+causes of degeneration. Recent publications have identified a number of metabolic processes-including but not
+limited to glucose and oxygen metabolism-that, when perturbed, play a role in the degeneration of
+photoreceptor cells. As a result, such studies have led to further research elucidating methods for prolonging
+photoreceptor survival in an effort to halt degeneration in its early stages. This review will explore the
+ways in which metabolomics has deepened our understanding of the causes of retinal degeneration and discuss
+how metabolomics can be used to prevent retinal degeneration from progressing to its later disease stages.
+
+---
+
+Evaluation of mold exposure in cystic fibrosis patients' dwellings and allergic bronchopulmonary risk.
+
+Very few studies have been conducted on cystic fibrosis (CF) patients' exposure to the indoor environment and,
+to our knowledge, there are no studies dealing with the link between specific fungal environmental exposure at
+home and fungal colonization resulting in allergic bronchopulmonary aspergillosis (ABPA). Fungal exposure of
+CF adult patients with ABPA (n=4) with fungal sensitization (n=7) and with no ABPA (n=5) was assessed in 16
+homes by dust sampling with electrostatic dust fall collectors (EDCs). Aspergillus fumigatus was specifically
+quantified by real-time quantitative polymerase chain reactions (qPCRs), and A. fumigatus DNA concentrations
+were significantly higher in homes of ABPA patients (p<0.001). Results indicate that indoor fungal
+contamination could be a factor favoring ABPA and suggest that environmental surveys could help in preventing
+fungal risk in CF patients.
+
+---
+
+The double-swab technique versus single swabs for human DNA recovery from various surfaces.
+
+Most crime scene DNA evidence is retrieved using cotton swabs. Since the late 90's, the double-swab technique
+has been favoured by many practitioners throughout the world. However, the superiority of double-swabbing over
+applying single wet swabs has not been broadly verified. Here we set out to evaluate the need for the second
+dry swab for various surfaces, aiming at mimicking the range of surfaces encountered at crime scenes: flat and
+ridged, absorbing and non-absorbing. For the tested non-absorbing surfaces, i.e., window glass, steel, brass,
+synthetic leather and ridged plastic, the first wet swabs gave at least 16 times higher DNA yields compared to
+the second dry swabs. In addition, second wet swabs gave more DNA than second dry ones, opposing the common
+notion that the purpose of the second swab is to absorb excess liquid. When ten experienced staff members
+sampled saliva stains on a window glass surface the variation between persons was considerable, with mean DNA
+yields for the first wet swabs ranging from 0.045 ± 0.022 to 0.13 ± 0.024 ng/μL. The first wet swabs gave
+4-162 times more DNA than the second dry swabs, with higher DNA amounts on second swabs coinciding with lower
+amounts for first swabs. We show that for non-absorbing surfaces, the first wet swab takes up most of the
+cells in dried stains, making it less valuable to apply a second dry swab. The differences in DNA recovery
+between first and second swabs were notable also for absorbing surfaces. Double-swabbing may be preferable for
+some complex surfaces, but focusing on efficient sampling technique with single wet swabs is likely a better
+general approach.
+
+---
+
+Hydrophilic surface modification of acrylate-based biomaterials.
+
+Acrylic polymers have proved to be excellent with regard to cell adhesion, colonization and survival, in vitro
+and in vivo. Highly ordered and regular pore structures thereof can be produced with the help of polyamide
+templates, which are removed with nitric acid. This treatment converts a fraction of the ethyl acrylate side
+groups into acrylic acid, turning poly(ethyl acrylate) scaffolds into a more hydrophilic and pH-sensitive
+substrate, while its good biological performance remains intact. To quantify the extent of such a
+modification, and be able to characterize the degree of hydrophilicity of poly(ethyl acrylate), poly(ethyl
+acrylate) was treated with acid for different times (four, nine and 17 days), and compared with poly(acrylic
+acid) and a 90/10%wt. EA/AAc copolymer (P(EA-co-AAc)). The biological performance was also assessed for
+samples immersed in acid up to four days and the copolymer, and it was found that the incorporation of acidic
+units on the material surface was not prejudicial for cells. This surface modification of 3D porous
+hydrophobic scaffolds makes easier the wetting with culture medium and aqueous solutions in general, and thus
+represents an advantage in the manageability of the scaffolds.
+
+---
+
+Impact of mesophilic co-composting conditions on the quality of substrates produced from winery waste
+activated sludge and grape stalks: Lab-scale and pilot-scale studies.
+
+In this study, different amounts of a mixture of winery waste activated sludge and grape stalks were
+co-composted for 8 weeks, at lab-scale under different temperatures and aeration rates, and at pilot-scale.
+None of the experiments showed the occurrence of a thermophilic stage, even when the composting temperature
+was kept at 34 °C, which might suggest biological suppression by the acclimated mesophilic microorganisms
+ubiquitous to the winery waste activated sludge. The composted substrates were fully characterized by
+physicochemical analysis, plant growth tests and germination indexes using parsley (Petroselinum crispum)
+seedlings and seeds. Surprisingly, despite the higher volume reduction at lab-scale, it was the initial
+mixture and the mixture composted outdoors which presented the best horticultural qualities, with seedling
+survival rates of 88.9% and 87.0% and modified germination indexes of 54% and 161%, respectively. These
+findings shed some light on previous contradictory results and allow the development of new recycling
+strategies.
+
+---
+
+Patient's Perception on the Esthetic Outcome of Anterior Fixed Prosthetic Treatment.
+
+OVERVIEW
+Patient's perception to the esthetic result of the treatment received can be different from a dentist opinion.
+Understanding patient's opinion, demand and expectation is part of successful treatment procedure.
+
+
+OBJECTIVE
+The purpose of this study was to investigate patient's opinion about the esthetic result of the fixed
+prosthetic treatment received in upper anterior teeth.
+
+
+MATERIALS AND METHODS
+About 90 volunteer subjects, 58 males and 32 females were given a self-evaluation questionnaire with 11
+questions to respond as Yes or No. The questions regarded the esthetic result of a fixed prosthodontic
+treatment received for their upper anterior teeth. The same questioner was completed for each subject by three
+clinicians through clinical photographs for different views of subject's smile. Agreement between patients and
+clinicians was calculated for all subjects to evaluate patient's perception to their esthetic results.
+
+
+RESULTS
+An agreement of 47.8 to 72.2% was observed between patients and clinicians, and the average agreement was
+53.64 to 60%. The highest agreement was related to satisfaction with the color of the crown and/or bridge
+margin while the least agreement was related to the satisfaction with the natural looking of the restoration.
+
+
+CONCLUSION
+There was variability in the agreement between the patients and the dentists with the satisfaction of the
+esthetic result of anterior restoration. Factor, such as gender, age and educational level may affect the
+results of the agreement.
+
+---
+
+Transcriptomic analysis of liver from grass carp (Ctenopharyngodon idellus) exposed to high environmental
+ammonia reveals the activation of antioxidant and apoptosis pathways.
+
+High concentration of ammonia in aquatic system leads to detrimental effects on the health of aquatic animals.
+However, the mechanism underlying ammonia-induced toxicity is still not clear. To better understand the
+mechanism of ammonia toxicity effects on fish, juvenile grass carp was employed in the present study. RNA
+high-throughput sequencing technique was applied to analyze the total RNAs extracted from the liver of fish
+after 8 h post exposure to the water containing 2 mM NH4HCO3 which experimentally mimicked the high
+environmental ammonia (HEA). A total of 49,971,114 and 53,826,986 clean reads were obtained in control and
+2 mM HEA group, respectively, in which there were 911 differently expressed genes (DEGs) including 563
+up-regulated and 348 down-regulated genes. In addition, 10 DEGs were validated by quantitative PCR. These DEGs
+were involved in several pathways related with oxidative stress or apoptosis. Further analysis on oxidative
+stress, histopathology and cellular apoptosis in grass carp liver after HEA exposure revealed interesting
+findings. Increased reactive oxygen species (ROS) content and superoxide dismutase (SOD) activity together
+with the decreased catalase (CAT) activity were detected, which may be effected by DEGs and related pathways
+such as FOXO signaling pathway. The histopathology and TUNEL assays results confirmed that apoptosis was
+induced in liver when fish had suffered HEA. Combined with the results of transcriptomic experiments,
+c-Myc-Bax-Caspase9 apoptosis pathway could be involved in grass carp liver apoptosis induced by ammonia
+stress.
+
+---
+
+Spontaneous Rupture of the Main Pancreatic Duct Synchronous With a Multi-Focal Microscopic Pancreatic
+Adenocarcinoma: A Case Report.
+
+Pancreatic cancer is one of the most lethal types of malignant tumours, commonly diagnosed at an advanced
+stage. The only curative treatment for this fatal disease is surgery and early diagnosis is the key to a
+better outcome and prognosis. In this case report we present a 57-year-old woman presenting to the emergency
+room with abdominal pain and weight loss. Computer Tomography (CT) imaging showed a rupture of the main
+pancreatic duct and a peri-pancreatic fluid collection with no evidence of a pancreatic mass. An Endoscopic
+Ultrasound (EUS) guided Fine Needle Aspiration (FNA) did not show any malignant cells and Carcinoembryonic
+Antigen (CEA) and Carbohydrate Antigen (CA) 19-9 markers were in the normal range. The patient then underwent
+pancreatectomy that revealed multiple microscopic foci of pancreatic adenocarcinoma with evidence of massive
+perineural and vascular invasion.
+
+---
+
+The Growing Use of Virtual Reality in Cognitive Rehabilitation: Fact, Fake or Vision? A Scoping Review.
+
+OBJECTIVE
+This review aims to evaluate the role of Virtual Reality (VR) in cognitive rehabilitation of different
+neurological diseases, and the accessibility to healthcare systems providing this type of treatment.
+
+
+METHOD OF RESEARCH
+Studies performed between 2003 and 2017 and fulfilling the selected criteria were found on PubMed, Scopus,
+Cochrane and Web of Sciences databases. The search combined the terms VR rehabilitation with different
+neurological disease.
+
+
+RESULTS
+Our findings showed that neurological patients performed significant improvement in many cognitive domains
+(executive and visual-spatial abilities; speech, attention and memory skills) following the use of VR
+training.
+
+
+CONCLUSIONS
+This review supports the idea that rehabilitation through new VR tools could positively affect neurological
+patients' outcomes, by boosting motivation and participation so to get a better response to treatment. In
+particular, VR can be used to enhance the effects of conventional therapies, promoting longer training
+sessions and a reduction in overall hospitalization time.
+
+---
+
+Exosomes: nanoparticles involved in cardioprotection?
+
+Exosomes are nanosized lipid vesicles released from cells. They are capable of transferring proteins, mRNA,
+and miRNA between cells and, therefore, represent a potential means of intercellular communication. Exosomes
+can be proangiogenic and may have cardioprotective properties. In contrast, their larger cousins,
+microvesicles, seem to have generally detrimental effects that are prothrombotic and proinflammatory. Exosomes
+are released from multivesicular bodies via an exocytic pathway and have the potential for cell-specific
+targeting. This normal process is hijacked during various pathological conditions, such as cancer, viral
+infection, and amyloidopathies. We assess the evidence for a role of exosomes and microvesicles in normal
+cardiovascular physiology, as well as during cardiovascular disease. In addition to offering a potential
+source of cardiovascular biomarkers, exosomes may offer a nonimmunogenic means of manipulating the heart.
+
+---
+
+Glucose conjugation of anti-HIV-1 oligonucleotides containing unmethylated CpG motifs reduces their
+immunostimulatory activity.
+
+Antisense oligodeoxynucleotides (ODNs) are short synthetic DNA polymers complementary to a target RNA
+sequence. They are commonly designed to halt a biological event, such as translation or splicing. ODNs are
+potentially useful therapeutic agents for the treatment of different human diseases. Carbohydrate-ODN
+conjugates have been reported to improve the cell-specific delivery of ODNs through receptor mediated
+endocytosis. We tested the anti-HIV activity and biochemical properties of the 5'-end glucose-conjugated GEM
+91 ODN targeting the initiation codon of the gag gene of HIV-1 RNA in cell-based assays. The conjugation of a
+glucose residue significantly reduces the immunostimulatory effect without diminishing its potent anti-HIV-1
+activity. No significant effects were observed in either ODN stability in serum, in vitro degradation of
+antisense DNA-RNA hybrids by RNase H, cell toxicity, cellular uptake and ability to interfere with genomic
+HIV-1 dimerisation.
+
+---
+
+Distinct Mechanisms Underlie Developmental Plasticity and Adult Acclimation of Thermogenic Capacity in
+High-Altitude Deer Mice.
+
+Developmental plasticity can elicit phenotypic adjustments that help organisms cope with environmental change,
+but the relationship between developmental plasticity and plasticity in adult life (e.g., acclimation) remains
+unresolved. We sought to examine developmental plasticity and adult acclimation in response to hypoxia of
+aerobic capacity (V̇O2max) for thermogenesis in deer mice (Peromyscus maniculatus) native to high altitude.
+Deer mice were bred in captivity and exposed to normoxia or one of four hypoxia treatments (12 kPa O2) across
+life stages: adult hypoxia (6-8 weeks), post-natal hypoxia (birth to adulthood), life-long hypoxia (before
+conception to adulthood), and parental hypoxia (mice conceived and raised in normoxia, but parents previously
+exposed to hypoxia). Hypoxia during perinatal development increased V̇O2max by a much greater magnitude than
+adult hypoxia. The amplified effect of developmental hypoxia resulted from physiological plasticity that did
+not occur with adult hypoxia - namely, increases in lung ventilation and volume. Evolved characteristics of
+deer mice enabled developmental plasticity, because white-footed mice (P. leucopus; a congener restricted to
+low altitudes) could not raise pups in hypoxia. Parental hypoxia had no persistent effects on V̇O2max.
+Therefore, developmental plasticity can have much stronger phenotypic effects and can manifest from distinct
+physiological mechanisms from adult acclimation.
+
+---
+
+Recent developments in the chiroptical properties of chiral plasmonic gold nanostructures: bioanalytical
+applications.
+
+The presence of excess L-amino acid in the Murchison meteorite, circular polarization effect in the genesis of
+stars and existence of chirality in interstellar molecules contribute to the origin of life on earth.
+Chiral-sensitive techniques have been employed to untangle the secret of the symmetries of the universe,
+designing of effective secure drugs and investigation of chiral biomolecules. The relationship between light
+and chiral molecules was employed to probe and explore such molecules using spectroscopy techniques. The
+mutual interaction between electromagnetic spectrum and chirality of matter give rise to distinct optical
+response, which advances vital information contents in chiroptical spectroscopy. Chiral plasmonic gold
+nanoparticle exhibits distinctive circular dichroism peaks in broad wavelength range thereby crossing the
+limits of its characterization. The emergence of strong optical activity of gold nanosystem is related to its
+high polarizability, resulting in plasmonic and excitonic effects on incident photons. Inspired by the
+development of advanced chiral plasmonic nanomaterials and exploring its properties, this review gives an
+overview of various chiral gold nanostructures and the mechanism behind its chiroptical properties. Finally,
+we highlight the application of different chiral gold nanomaterials in the field of catalysis and medical
+applications with special emphasis to biosensing and biodetection.
+
+---
+
+Detection rate of crossing vessels in pediatric hydronephrosis: Transperitoneal laparoscopy versus open
+lumbotomy.
+
+BACKGROUND
+A bundle of crossing vessels (CV) supplying the lower pole of the kidney and causing mechanical obstruction of
+the ureteropelvic junction (UPJ) has been the subject of many discussions. During pyeloplasty, it is possible
+to overlook the CV. This may result in recurrent dilatation of the kidney and the need for re-surgery.
+
+
+OBJECTIVES
+To compare the detection rate of CV in UPJ obstruction (UPJO) depending on the operational access applied
+(transperitoneal laparoscopy (LAP) vs open lumbotomy (OPEN)). Assessment of features that could indicate the
+presence of CV.
+
+
+MATERIAL AND METHODS
+Two hundred and forty-six pediatric pyeloplasties were performed between January 2006 and July 2017 in the
+Department of Pediatric Surgery and Urology at the Wroclaw Medical University, Poland - 111 out of them by LAP
+and 135 by OPEN, on 98 girls and 148 boys. A retrospective analysis of the patient records for the detection
+of CV and characteristics of the CV before surgery was performed.
+
+
+RESULTS
+Intraoperative CV causing obstruction of the UPJ in the LAP group were recognized in 34.2% (n = 38) of the
+patients, and within the OPEN group in 12.5% (n = 17) (p < 0.0001); 90% (n = 27) of patients with the
+diagnosed CV did not show congenital hydronephrosis. In 68% (n = 21) of the patients there were cases of
+recurrent renal colic. The presence of CV was suspected in 7.2% of kidney ultrasounds and in 12.5% in computed
+tomography (CT) urograms.
+
+
+CONCLUSIONS
+The detection rate of CV in UPJO is statistically higher in LAP access than in open retroperitoneal lumbotomy.
+The distinguishing features of patients with CV are the lack of prenatal diagnosis for hydronephrosis and the
+presence of pain in the lumbar region.

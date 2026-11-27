@@ -37,3 +37,19 @@ stream: false
 https://llm.radar-service.eu/ollama/api/create \
 -H 'Content-Type: application/json' \
 -d @-
+
+# Problems
+I complained about not finding Institutions.
+Answer:
+Die drei Institutionen fehlen, weil der Prompt sie gar nicht vorsieht und an einer Stelle sogar ausschließt. Ich habe nichts geändert.
+
+Gründe im Prompt:
+1. Institutionen sind nicht vorgesehen. Aufgezählt werden nur „Gegenstände, Stoffe, Methoden sowie die Personen, Orte, Werke und Epochen“. Körperschaften wie Museen, Hochschulen oder Labore kommen nicht vor, also gibt es sie für das Modell nicht.
+2. UCLAB wird ausdrücklich ausgeschlossen: durch „Keine Projektnamen“, „Abkürzungen ausschreiben“ und „Jedes Schlagwort muss für sich allein etwas über das Thema sagen“. Die Fachhochschule Potsdam ist im Text nur Projektinitiator und sagt in diesem Sinn nichts über das Thema.
+3. Die 10 Plätze sind voll. Das Modell soll die wichtigsten Begriffe zuerst nennen und füllt alle Plätze mit Themenbegriffen wie Kleidung, Kostüm und Tracht. Selbst eine nachrangig eingestufte Institution bleibt außen vor.
+
+Bibliothekarisch ist das teilweise sogar Absicht. In der Sacherschließung ist eine Körperschaft nur Schlagwort, wenn es um sie geht.
+- Das Germanische Nationalmuseum besitzt die Textilsammlung, die untersucht wird. Es wäre als Schlagwort vertretbar.
+- UCLAB und FH Potsdam haben den Datensatz erstellt. Sie gehören in die Metadaten zu Beteiligten und Affiliation, nicht in die Schlagwörter.
+- Auch das Gold für diesen Datensatz enthält keine Institution: 3D, Kunstgeschichte, Kleiderforschung, Photogrammetrie.
+

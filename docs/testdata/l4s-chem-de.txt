@@ -1,0 +1,616 @@
+Elektrochemische Reduktion von Niob-Halogeniden in ionischen Flüssigkeiten
+
+Metallische Überzüge aus Niob bieten aufgrund ihrer besonderen chemischen, thermischen und mechanischen
+Stabilität vor allem auf kostengünstigen Grundwerkstoffen, die extremen korrosiven und abrasiven Belastungen
+ausgesetzt sind, ein breites Anwendungsspektrum. Bis heute ist jedoch ein hoher verfahrenstechnischer Aufwand
+erforderlich, um haftfeste und hochreine Niob-Schichten in Niederdruck-Prozessen aus der Gasphase
+herzustellen. Elektrochemische Prozesse bieten eine kostengünstige Alternative, wobei die Reaktivität von Niob
+sowie das negative Standardpotential der meisten Niob-Reduktionsreaktionen den Einsatz wässriger Medien
+ausschließt. Die ionischen Flüssigkeiten (ILs) ermöglichen, durch ihre große elektrochemische und thermische
+Stabilität diese Lücke zu schließen und wurden daher als Medium für die elektrochemische Reduktion von
+Niob-Halogeniden intensiv untersucht. Im Rahmen meiner Arbeit wurden die Niob-Halogenide NbF5, NbCl5, NbBr5
+und Nb(CH3cp)2Cl2 in vier ILs mit zyklischen Voltammetrie (CV), differentieller Pulsvoltammetrie (DPV),
+Infrarot- und Raman-Spektroskopie hinsichtlich ihrer Eignung als Elektrolyte untersucht. In Kombination mit
+potentiostatischen Abscheidungen zeigte sich, dass Niob-basierte Schichten abgeschieden werden konnten, dafür
+aber eine gute Löslichkeit des Niob-Halogenids, ein geringer Wassergehalt sowie eine erhöhte Temperatur des
+Elektrolyten essentiell sind. Analysen des Reduktionsmechanismus mit der rotierenden Ring-Scheiben-Elektrode
+(RRDE) belegen chemische Nebenreaktionen die auf Kom- und Disproportionierung der Niob-Spezies sowie
+Zersetzung der IL zurückgeführt werden. Mit Hilfe der elektrochemischen Quarzmikrowaage (EQCM) wurde die
+Einlagerung dieser Zersetzungsprodukte bestätigt. Die abgeschiedenen Schichten wurden mit
+Rasterelektronenmikroskopie (REM), energie-dispersiver Röntgenspektroskopie (EDX), Röntgenfluoreszenzanalyse
+(RFA), Photoelektronen-spektroskopie (XPS) sowie Röntgendiffraktometrie (XRD) charakterisiert. Diese Schichten
+weisen etwa 25 At.-% Niob auf. Die restlichen 75 At.-% sind Fremdelemente wie z.B. C, N, O, F, S, Cl bzw. Br,
+die auf Rückstände des Elektrolyten und der eingelagerten IL-Zersetzungsprodukte zurückgeführt werden. Die
+Niob-Spezies wurde nicht vollständig zum Metall reduziert und liegt in röntgenamorphen Verbindungen wie NbC,
+NbO bzw. gemischte NbC1-xOx (mit x ≤ 0,2) sowie NbO2 und Nb2O5 vor. NbCl5 in 1-Butyl-1-methylpyrrolidinium
+trifluoromethansulfonat ([BMP][OTf]) liefert die dicksten und homogensten Schichten und ist damit das
+aussichtsreichste System für die Niob-Reduktion. Die Schichteigenschaften können durch Substratvorbehandlung,
+Additiveinsatz, gepulste Potentialführung sowie Tempern weiter verbessert werden.
+
+---
+
+Thermodynamik : eine Einführung
+
+Ergänzt um 35 Internetvideos zu Übungsaufgaben (Zugang via QR-Code und URL) und einen Anhang mit
+Stoffdatentabellen bietet das Lehrbuch des Autorenteams der FH Aachen in der 2. Auflage (1. Auflage: ID-G
+46/15) Studierenden im Bachelorstudiengang der Naturwissenschaften und des Maschinenbaus eine Einführung in
+die klassische Gastheorie, die Hauptsätze der klassischen Thermodynamik und grundlegende Anwendungen, auch
+geeignet für engagierte Schüler*innen im Leistungskurs Physik. Ein kurzer Ausblick auf die statistische
+Thermodynamik gibt Einblicke in atomistische Zusammenhänge, die Erstellung und Nutzung thermodynamischer
+Modelle. Übungsaufgaben mit Lösungen beschliessen jedes Kapitel. - Die Erstauflage muss nicht ersetzt werden,
+zur Erstanschaffung empfohlen neben Ulrich Nickel: Lehrbuch der Thermodynamik (ID-G 4/20). Klaus Stierstadt:
+Thermodynamik für das Bachelorstudium (ID-B 20/18) geht mehr auf atomistische Zusammenhänge ein, eher
+akademisch ist Matthias Bartelmann: "Thermodynamik und Statistische Physik" (ID-G 43/18)
+
+---
+
+Weiterentwicklung von thermodynamischen Vorhersagemethoden als Grundlage für die Lösungsmittelauswahl bei der
+Flüssig-Flüssig-Extraktion und der Absorption
+
+Die Gruppenbeitragszustandsgleichung VTPR erlaubt die Berechnung der für die computergestützte
+Verfahrensentwicklung benötigten Reinstoff- und Gemischdaten. Wegender begrenzten
+Wechselwirkungsparametermatrix ist die Anwendbarkeit begrenzt. Deshalbwurdeversucht die umfangreiche mod.
+UNIFAC-Matrix für das VTPR-Modell zu nutzen. Da diese Vorgehensweise nicht erfolgreich war, wurde
+dieVTPR-Wechselwirkungsparametermatrix mit Daten aus der Dortmunder Datenbank (DDB) und selbstgemessenen
+Exzessenthalpien und Aktivitätskoeffizienten erweitert.Die gute Vorhersagequalität von VTPR für das
+PVT-Verhalten wurde anhand der mit einem Biegeschwinger gemessenen experimentellen Dichten nachgewiesen. Ein
+Programm zur Lösungsmittelauswahl für die Flüssig-Flüssig-Extraktion und die Absorption wurde erstellt, das
+Vorhersagemodelle bzw. die experimentellen Daten der DDB nutzt. Die Zuverlässigkeit der
+Lösungsmittelauswahlwurde anhand bekannter Trennprobleme der chemischen Industrienachgewiesen. <dt.>
+
+The group contribution of state VTPR allows the calculation of pure component and mixtures properties needed
+for the computer assisted process development. Because of the limited matrix the range of applicability is
+limited. Therefore it has been tried to use the large parameter matrix of mod. UNIFAC for the VTPR model. But
+this approach was not successful. Therefore the parameter matrix has been extended with the help of datafrom
+the Dortmund Data Bank (DDB) and measured excess enthalpies and activity coefficients. The good quality of the
+prediction of VTPR for the PVT behavior has been verified with the help ofexperimental densities measured
+using a vibrating tube densimeter. A software package for the selection of solvents for liquid-liquid
+extraction and absorption have been developed, which uses prediction models respectivelydata stored in DDB.
+The reliability of the solvent selection has been demonstrated for various separation problems of industrial
+interest. <engl.>
+
+---
+
+Molekulardynamische Simulationen von Wasser und wäßrigen Salzlösungen
+
+In dieser Arbeit werden Molekulardynamik-Simulationen von Wasser in einem Druckbereich von 1-8000 bar sowie
+von wäßrigen Salzlösungen in einem Konzentrationsbereich von 0,498-4,762 Molprozent vorgestellt. Es wurden die
+Änderungen der Wasserstruktur, die sich bei Druckerhöhung bzw. Erhöhung der Salzkonzentration ergeben, mit
+thermodynamischen und dynamischen Größen in Verbindung gebracht. Ein Fokus dieser Arbeit lag im Verständnis
+des unterschiedlichen Verhaltens der Moleküle in verschiedenen Wasserregionen, d.h. in den jeweiligen
+Hydratschalen der unterschiedlichen Ionen und im Bulkwasser.
+
+---
+
+Reaktionen der Halogenide der Gruppe 14 mit 1,5-Diphenylbispidin
+
+Im Rahmen dieser Arbeit werden Reaktionen der Gruppe 14 Halogenide mit 1,5-Diphenylbispidin vorgestellt,
+welche als Vorläufermoleküle für die Synthese von diaminosubstituierten schweren Carbenen dienen. Von diesen
+wird die Dimerisierung zu den bislang unbekannten tetraaminosubstituierten schweren Alkenen erwartet. Des
+Weiteren werden die Synthese und Charakterisierung mittels NMR-Spektroskopie und Einkristallstrukturanalyse
+des 1,5-Diphenylbispidin sowie einiger seiner protonierten Verbindungen vorgestellt. Salzmetathesereaktionen
+des 1,5-Diphenylbispidin mit Siliciumtetrabromid liefern abhängig von den Reaktionsbedingungen und dem
+eingesetzten Halogenid verschiedene Produkte. In allen Fällen handelt es sich dabei um bissilylierte
+Bispidine, inklusive eines neuartigen 12-gliedrigen Disilaheterocyclus. Bei der Reaktion des
+1,5-Diphenylbispidin mit Germaniumtetrabromid wird das Germaadamantan als Vorläufermolekül für die Synthese
+der diaminosubstituierten schweren Carbene gebildet. <dt.>
+
+---
+
+Bioorganikum : Praktikum der Biokatalyse
+
+Die bioorganische Chemie ist eine interdisziplinäre Fachrichtung, eine "Schnittstellenwissenschaft",
+charakterisiert durch das Zusammenspiel solcher Wissenschaftsdisziplinen wie organische Chemie,
+Biotechnologie, Biochemie, Bioinformatik, Medizin und Pharmakologie. Das vorliegende Praktikumsbuch der
+Biokatalyse, in dem man zu den verschiedenen Enzymarten im Einführungsteil zunächst die theoretischen
+Grundlagen finden kann, beschreibt danach im praktischen Teil sehr detailliert insgesamt 52 verschiedene
+wichtige Enzymreaktionen. In Umfang und Anspruch bisher konkurrenzlos.
+
+---
+
+Photophysical characterization of dynamically linked polymers for self-healing applications
+
+The thesis at hand deals with the spectroscopic and photophysical characterization of dynamically linked
+polymers, so called dynamers. Dynamers have already found extensive use in the fields of sensor systems or
+self-healing materials, but the combination of their dynamic chemistry with optical properties such as
+absorption or emission is still an open field of research. The present thesis is divided in three main parts.
+First, dynamers that rely on the Diels-Alder functionality were investigated by steady-state and
+time-resolved, i.e. transient absorption and time-resolved emission, spectroscopies. The chromophores embedded
+in the polymer scaffold belonged to the class of oligo(arylene ethynylene)s, which are known for their
+pronounced emission properties. In particular, the influence of the dynamer structure on their ground- and
+excited state properties both in solution as well as in thin films was studied. Additionally, energy transfer
+experiments in different polymer compositions were conducted. Second, an imine based polymer was probed with
+regards to its photostability. Utilizing different excitation energies and solvent properties, different
+photochemical deactivation pathways were found. Last, an imine-based polymer system was investigated that
+could partially self-heal its absorption properties after photodamage. Different polymer sructures which
+affected polymer mobility in films were tested and general rules for the design of optically active
+self-healing polymers were derived. Keywords: dynamic polymers, dynamic chemistry, self-healing, time-resolved
+spectroscopy, transient absorption spectroscopy, energy transfer, arylene ethynylene, phenylene ethynylene,
+photoisomerization, photooxidation.
+
+---
+
+Arbeitstechnik im Chemielabor
+
+?Arbeitstechnik im Chemielabor ? ist eine praxisorientierte Einführung ins Laborhandwerk. Es erklärt die
+grundlegenden Techniken Schritt für Schritt und zeigt, wie man komplexere Arbeiten wie das Destillieren,
+Titrieren und Extrahieren korrekt ausführt. Zahlreiche praktische Tipps helfen, Fehler zu vermeiden und
+Gefahren zu minimieren. (Verlagstext)
+
+---
+
+Generierung von aktiven Zentren auf Carbon Nanotubes für die oxidative Dehydrierung von Ethylbenzol
+
+Die Synthese von Styrol ist einer der zehn größten Herstellungsprozesse in der Petrochemie. Im Jahr 2010
+wurden 25 Millionen Tonnen produziert, wobei die Nachfrage weiterhin steigt. Durch die Verwendung von
+Multiwalled Carbon Nanotubes als Katalysatoren (MWCNTs) und Zugabe von Sauerstoff zur Reaktionsmischung kann
+im Gegensatz zur industriell eingesetzten Dehydrierung von Ethylbenzol ein Vollumsatz thermodynamisch erreicht
+werden. Zusätzlich ist es möglich bei dieser oxidative Dehydrierung von Ethylbenzol die Reaktionstemperatur um
+200 °C zu senken, ohne einen Verlust bei den Umsätzen hervorzurufen.  Innerhalb der Arbeit wurden verschiedene
+Methoden untersucht, mit denen die MWCNTs für den Einsatz als Katalysatoren verbessert werden konnten. Dabei
+wurden zum einen eine Erhöhung der Oberfläche durch KOH-Behandlung und zum anderen verschiedene
+Oxidationsverfahren an dem Kohlenstoffmaterial realisiert. Durch die Oxidationen wurden dabei die reaktiven
+Sauerstoffgruppen für die Katalyse im unterschiedlichen Mengen und Verhältnissen zueinander generiert. Die
+entstandenen aktiven Zentren wurden umfassend quantifiziert und daraus Reaktionsmechanismen für die
+Oxidationen an den MWCNTs abgeleitet. Es zeigte sich bei dem Einsatz in der oxidativen Dehydrierung von
+Ethylbenzol, dass alle Sauerstoffgruppen auf den MWCNTs während der Reaktion zu den aktiven Zentren umgeformt
+werden und somit eine direkte Korrelation zwischen dem Funktionalisierungsgrad der MWCNTs und dem Umsatz von
+Ethylbenzol besteht. Eine Erhöhung der Oberfläche hingegen sorgte für eine geringere thermische Stabilität des
+Materials und führte zu einem Verlust des Katalysators innerhalb der ersten Stunden während der Katalyse.
+
+---
+
+Tetrabenzo[a,c,g,i]fluorenylkomplexe des Titans : Synthese und Anwendungen
+
+Within the scope of this thesis an array of different tetrabenzo[a,c,g,i]fluorenyltitanium complexes were
+synthesized and fully characterized starting from the benzofused fluorene derivative
+tetrabenzo[a,c,g,i]fluorene. By reacting the lithium salt [Tbf][Li(THF)4] with chlorotitanium alkoxides and
+-phenoxides, tetrabenzo[a,c,g,i]fluorenyltitanium complexes of the general formula [(eta5-Tbf)TiClx(OiPr)] (x
+= Cl, OiPr) and [(eta5-Tbf)Ti(OAr)] (Ar = C6H5, 4 MeC6H5, 4 tBuC6H5) could be obtained. Furthermore, the
+TbfTi-complexes [(eta5 Tbf)TiCl2(THF)] and [(?5-Tbf)TiCl3] were synthesized, whereupon the titanium(III)
+complex [(eta5 Tbf)TiCl2(THF)] was reacted with radicals to give the compounds [(eta5 Tbf)TiCl2TEMPO] and
+[(eta5 Tbf)TiCl2(OtBu)], and the titanium(IV)-complex [(eta5 Tbf)TiCl3] was reacted with an array of
+lithiumphenoxides to form monophenoxide complexes of the general formula [(eta5-Tbf)TiCl2(OAr)] (Ar =
+4-tBuC6H4, 2,6-Me2C6H3, 2,4,6-Me3C6H2, 2,6-iPr2C6H3, 2,6-Ph2C6H3). Selected compounds were scrutinized as
+regards their polymerization properties of styrene and ethylene. <engl.>
+
+Im Rahmen der vorliegenden Dissertation wurde ausgehend von dem benzanellierten Fluorenylderivat
+Tetrabenzo[a,c,g,i]fluoren (Tbf) eine Reihe verschiedener Tetrabenzo[a,c,g,i]fluorenyltitankomplexe
+synthetisiert und umfassend charakterisiert. Durch Umsetzung des Lithiumsalzes [Tbf][Li(THF)4] mit
+Chlorotitanalkoxiden und -phenoxiden konnten Tetrabenzo[a,c,g,i]fluorenyltitanalkoxo und -phenoxokomplexe der
+allgemeinen Formel [(eta5-Tbf)TiClx(OiPr)] (x = Cl, OiPr) und [(eta5-Tbf)Ti(OAr)] (Ar = C6H5, 4-MeC6H5, 4
+tBuC6H5) dargestellt werden. Des Weiteren wurden die TbfTi-Komplexe [(eta5 Tbf)TiCl2(THF)] und
+[(eta5-Tbf)TiCl3] dargestellt, wobei der Titan(III)-Komplex [(eta5 Tbf)TiCl2(THF)] mit Radikalen bzw.
+Radikalbildnern zu [(eta5 Tbf)TiCl2TEMPO] und [(eta5 Tbf)TiCl2(OtBu)], der Titan(IV)-Komplex [(eta5-Tbf)TiCl3]
+mit Lithiumphenoxiden zu einer Reihe von Monophenoxokomplexen der allgemeinen Formel [(eta5-Tbf)TiCl2(OAr)]
+(Ar = 4-tBuC6H4, 2,6-Me2C6H3, 2,4,6-Me3C6H2, 2,6-iPr2C6H3, 2,6-Ph2C6H3) umgesetzt werden konnte. Ausgewählte
+Komplexe wurden hinsichtlich ihrer Fähigkeit zur syndiotaktischen Polymerisation von Styrol bzw. zur
+Polymerisation von Ethylen untersucht. <dt>
+
+---
+
+Plasmapolymerisation mit einem Atmosphärendruck-Mikroplasma-Jet zur Bildung funktioneller Schichten
+
+Atmosphärendruck, Plasma, Beschichten, Teflon, Aminogruppen, Mikroplasma, Jet, atmospheric pressure,
+deposition, teflon-like, microplasma, aminogroups
+
+Within the scope of this work the plasmapolymerisation of aminogroup containing and perfluorinated
+hydrocarbons with a microplasma jet at atmospheric pressure was investigated. The goal was a first time
+successful deposition of amino-functional and Teflon-like coatings. To achieve this, a experimental setup for
+the deposition process was planned and realised. It consists of the plasma jet, and the surrounding glass
+vessel, which allows the generation of different ambient atmospheres at normal pressure and also protects the
+experimenter from potentially produced toxic components. As the first task, the deposition with the aminogroup
+containing precursors Cyclopropylamine (CPA) und Ethylendiamine (EDA) was pursued. It turned out that a
+deposition in self-organized jet mode was possible. The coatings possess a dome-shaped deposition profile a
+homogeneous chemical structure with a nitrogen content of up to 20 %. Depending on the treatment time and used
+ambient atmosphere, [NH2]/[C] values between 5.5 % and 3 % (EDA) as well as 4 % and 1 % (CPA) were obtained.
+The protective gas atmosphere, consisting of nitrogen and hydrogen, which was meant to support the formation
+of primary aminogroups, was impacting the process negatively. Compared to processes with air as ambient
+atmposphere the deposition rate was halved. Furthermore, a positive effect on the amount of primary
+aminogroups was only observed with CPA ...
+
+---
+
+Chemische Thermodynamik : Grundlagen, Übungen, Lösungen
+
+Rezension: Dieses Lehr- und Übungsbuch zeichnet sich durch seine Fülle an ausführlich erläuterten
+Aufgabenstellungen und Lösungswegen zu allen wichtigen Teilgebieten der chemischen Thermodynamik aus. Es ist
+sowohl von seinem Konzept als auch potenziellen Benutzerkreis her nicht direkt vergleichbar mit anderen hier
+bereits besprochenen Titeln zur Thermodynamik, zuletzt E. Hahne (ID 24/10), E. Rebhan (ID 27/10) und F.
+Herrmann (BA 7/09), die mehr für angehende Ingenieure bestimmt sind. An Titeln speziell zur Thermodynamik für
+Chemiker hingegen wurden hier nur vor längerer Zeit das Lehrbuch von H. Möbius (ID 48/88) sowie das
+dazugehörige Arbeitsbuch von G. Wolf (ID 4/91) besprochen. Das vorliegende Buch wurde von einem Diplomlehrer
+für Chemie verfasst. Es ist somit nicht nur für Studierende mit Haupt- und Nebenfach Chemie sowie Lehramt
+Chemie interessant. Wegen der Fülle an ausführlichen Antworten auf die Fragen und didaktisch gut aufbereiteten
+Erläuterungen von Lösungswegen (dieser Teil macht 80 Prozent des Buchinhaltes aus) ist es in Teilen ebenso für
+Schüler der Sekundarstufe II geeignet. Sehr empfohlen! (2 S)
+
+---
+
+Beiträge zu Appliklationen von 4-Hydroxy-1,3-thiazolen
+
+Eine Reihe neuer und funktioneller Chromophore/Fluorophore auf der Basis von 4-Hydroxy-1,3-thiazolen wurde
+synthetisiert. Aus diesem Portfolio an Derivaten wurden Anwendungen entwickelt und die Verbindungen
+hinsichtlich ihrer Verwendung als Sensoren und Antioxidantien evaluiert. Innerhalb des Bereichs Sensoren
+wurden die neuartigen O-Silylether der 4-Hydroxythiazole synthetisiert und vollständig charakterisiert. Die
+hohe Fluoreszenzintensität dieser Verbindungen zusammen mit der bekannten Affinität von Silizium gegenüber
+Fluorderivaten wurden genutzt, um einen neuen Fluoridionen-Sensor zu entwickeln. Die Desilylierung dieser
+Fluorophore durch Fluorid kann in polaren Lösungsmitteln und sogar in Wasser „dual“ detektiert werden. Dieses
+neue Fluoridionen-Detektions-System stellt durch die starke Änderung der Fluoreszenzmaxima von blau nach rot,
+durch ihre Selektivität gegenüber anderen Anionen und ebenso durch die hohe Empfindlichkeit eine
+Weiterentwicklung gegenüber anderen Verfahren dar. Im Rahmen der Entwicklung von Sensoren wurden weiterhin die
+tricyclische Lactone auf Basis von 4-Hydroxythiazolen synthetisiert und vollständig charakterisiert. Diese
+Heterocyclen zeigen unter UV-Bestrahlung eine sehr starke Festkörper-Fluoreszenz. ...
+
+---
+
+Synthesen, Strukturen und Eigenschaften Cobalt(II)-basierter Ionischer Flüssigkeiten
+
+Ionische Flüssigkeiten stehen derzeit im Fokus vieler Untersuchungen. Übergangsmetallbasierte Ionische
+Flüssigkeiten haben darüber hinaus interessante magnetische Eigenschaften. Die in dieser Arbeit dargestellten
+Verbindungen zeichnen sich durch eine Reihe interessanter Eigenschaften, die so nicht bzw. nur bedingt bei
+ähnlichen magnetischen Ionischen Flüssigkeiten gefunden werden können. Die neu dargestellten Verbindungen
+wurden intensiv mittels röntgenographischer, thermischer, spektroskopischer, magnetischer, sowie weiterer
+physikochemischer Methoden untersucht.
+
+---
+
+Einfluss von Kristallisationskinetik und Dynamik im Kristall und in der Schmelze auf die Strukturbildung
+teilkristalliner Polymere
+
+chain dynamics; polyethyleneoxide; polycaprolactone; crystallisation kinetics; disentanglement time;
+crystallisation time; semi-crystalline structure; small angle X-ray scattering; entanglement density
+
+In dieser Arbeit erfolgt ein systematischer Vergleich der Zeitskalen der Kristallisationskinetik und
+Schmelzdynamik (τC und τD) sowie der Kristalldynamik (τR) und deren kombinierter Einfluss auf die Morphologie.
+In crystal-mobile Polymeren wie Polyethylenoxid (PEO) führt eine Reorganisation und Verdickung direkt an der
+Wachstumsfront zu einer lokal äquilibrierten topologischen Struktur der amorphen Phase. Für crystal-fixed
+Polymere wie Poly-Epsilon-Caprolacton (PCL) wachsen in Abwesenheit dieses Relaxationsprozesses die
+kristallinen Lamellen zufällig in die verschlaufte Schmelze. Die Bestimmung der für die Kristallisation und
+Reptation nötigen Zeitskalen von τC und τD erfolge experimentell. Für PEO wird außerdem die experimentell
+ermittelte Zeitskala der αc-Relaxation mit τC und τD verglichen. Die Morphologie von PEO hängt maßgeblich von
+der Kombination der Zeitskalen ab, wohingegen PCL weitgehend unbeeinflusst von einer Variation der
+Kristallisationsbedingungen bleibt. In PCL führt die Reorganisation der Ketten während der Kristallisation zu
+einer von τC/τD abhängigen Verringerung der Verschlaufungsdichte.
+
+Kettendynamik; Polyethylenoxid; Polycaprolacton; Kristallisationskinetik; Kristalldynamik; Entschlaufungszeit;
+Kristallisationszeit; teilkristalline Struktur; Röntgenkleinwinkelstreuung; Verschlaufungsdichte
+
+A systematic comparison of the timescales of crystallization kinetics and melt dynamics (τC and τD), as well
+as of the crystalline dynamics (τR) and their combined effect on the morphology is presented. In
+crystal-mobile polymers as polyethylenoxide (PEO), a reorganization and thickening directly at the growth
+front results in an equiibrated topological structure of the amorphous phase. For crystal-fixed polymers
+without this relaxation, such as poly-epsilon-caprolactone (PCL), crystalline lamellae grow randomly into the
+entangled melt. The timescales τC and τD are determined experimentally. Furthermore, for PEO the
+experimentally determined timescale of the αc-relaxation is compared with τC and τD. The morphology of PEO is
+largely dependent on the combination of the timescales, whereas PCL is widely unaffected by a change of the
+crystallization conditions. In PCL, the reorganization of chains during crystallization leads to a reduced
+entanglement density, depending on τC/τD.
+
+---
+
+Physikalische Chemie : eine Einführung nach neuem Konzept mit zahlreichen Experimenten
+
+Laut Verlag komplett überarbeitete und aktualisierte Neuauflage (Vorauflage: ID-G 50/10, lag zum Vergleich
+nicht vor) des anschaulichen Lehrbuchs mit vielen Experimenten, das nun rund 150 Seiten mehr Umfang hat. In
+drei Teilen werden Studienanfänger*innen mit Chemie im Haupt- oder Nebenfach die Grundzüge der Stoffdynamik
+vermittelt: Statik (Grundbegriffe und chemische Gleichgewichte), Kinetik (zeitlicher Ablauf von
+Stoffumbildungen) und Elektrochemie (Mitwirkung elektrischer Felder). Laut Hinweis im Vorwort ist neu
+hinzugekommen das Kapitel "Salzwirkung"; die Kapitel "Elektrolytlösungen" und "Redoxpotentiale" wurden im
+gröe︣ren Mass verändert. Zahlreiche Abbildungen und Zeichnungen sowie viele Beispiele aus dem Alltag
+verdeutlichen den Lehrstoff. Auf der Homepage der Job-Stiftung gibt es detaillierte Beschreibungen zu den
+Schauversuchen. Übungsaufgaben gibt es nur in einem extra Arbeitsbuch ("Arbeitsbuch Physikalische Chemie",
+Springer, 2019) von denselben Autoren. Für Bibliotheken an Hochschulstandorten
+
+---
+
+Synthese und Funktionalisierung von Heterozyklen durch Palladium-katalysierte Kupplungsreaktionen
+
+This thesis is dedicated to the synthesis of novel biologically active and fluorescent heterocycles.  Based on
+Friedel-Crafts acylations and palladium(0)-catalyzed CC and CN coupling reactions, a series of new
+heterocycles were synthesized in high yields. All new products were fully characterized. Additionally, the
+absorption and emission spectra were measured for selected examples. The thienoquinolones were tested for
+their inhibition activity against nucleotide pyrophosphatases.<eng>
+
+Die vorliegende Doktorarbeit widmet sich der Synthese von neuen, biologisch aktiven sowie fluoreszierenden
+Heterozyklen. Durch die Anwendung von Friedel-Crafts Acylierungen und von Palladium(0)-katalysierten CC- bzw.
+CN-Kupplungsreaktionen wurden verschiedene Heterozyklen in guten Ausbeuten hergestellt. Alle neu
+synthetisierten Verbindungen wurden analytisch charakterisiert. Für ausgewählte Beispiele wurden Absorptions-
+und Emissionsmessungen durchgeführt. Weiterhin wurden die Thienochinolone bezüglich ihrer Inhibitoraktivität
+gegenüber verschiedener Nukleotid-Pyrophosphatasen untersucht.<ger>
+
+---
+
+Präparation von nanoporösen Kupfer-Filmen mit kontrollierten Eigenschaften und das Testen dieser als
+Katalysator für die elektrochemische CO2 Reduktion
+
+Nanoporöse Kupfer (np-Cu)-Schäume zeigen sehr interessante katalytische Eigenschaften aufgrund ihrer hohen
+Anzahl gering koordinierter Oberflächenatomen und ihrer hohen Porosität gegenüber polykristallienen Cu
+(poly-Cu). In dieser Arbeit wurden Methoden für die Herstellung von np-Cu-Schäumen aus dem
+Entlegierungsprozess von Zink-reichen Kupferlegierungen entwickelt, um die Struktur, Porosität und
+Zusammensetzung für die Anwendung in der elektrochemischen Reduktion von CO2 (CO2RR) zu modifizieren. Neben
+der Entwicklung eines elektrochemischen Messaufbaus wurde der Einfluss der np-Cu Schäume auf die
+Produktverteilung der CO2RR untersucht. Hier zeigte sich unter anderem, dass ein hoher Restzinkanteil im np-Cu
+zu einer erhöhten CO Bildung gegenüber poly-Cu führt, während sich verstärkt C2H4 an oxidiertem Cu bildet.
+
+Nanoporous copper (np-Cu) foams show very interesting catalytic properties due to their high number of
+low-coordinated surface atoms and high porosity compared to polycrystalline Cu (poly-Cu). In this thesis,
+methods for the production of np-Cu foams prepared by dealloying of zinc-rich copper alloys were developed to
+modify the structure, porosity and composition for the use in the electrochemical reduction of CO2 (CO2RR).
+Besides the development of an electrochemical setup, the influence of np-Cu foams on the product distribution
+of CO2RR was investigated. Based on the results, it was shown that a high residual zinc content in np-Cu leads
+to an increased CO formation compared to poly-Cu, while C2H4 formation is enhanced on oxidized Cu.
+
+---
+
+Untersuchungen zu endophytischen Streptomyceten aus Arnica montana L. und zum Einfluss des Birkenkorkextraktes
+und seiner Triterpene auf den Wundheilungsprozess
+
+Abstract: Streptomyces from Arnica montana L.: A. montana L., a medicinal plant producing potent sesquiterpene
+lactones, lives in symbiosis with endophytic Streptomyces strains. Streptomyces is a genus that is known to
+produce an enormous variety of highly active natural products. The isolated Streptomyces strains revealed to
+be not yet described species, which have a close relationship to Streptomyces avidinii and Streptomyces
+spororaveus. In the analyzed Streptomyces extracts, the glutarimide antibiotics cycloheximide and actiphenol
+as well as the diketopiperazines cyclo-prolyl-valyl, cyclo-prolyl-isoleucyl, cyclo-prolyl-leucyl und
+cyclo-prolyl-phenylalanyl could be identified. Sesquiterpene lactones were not produced. The extracts showed
+antifungal and cytotoxic, but no marked antibacterial activity.Birch bark extract and the wound healing
+process: In the last years, triterpene-enriched preparations from birch bark proved their wound healing
+promoting effect in clinical studies. The underlying molecular mechanism was further examined in this PhD
+thesis. An influence of birch bark extract (TE) and the single triterpenes on the actin cytoskeleton of
+primary human keratinocytes and fibroblasts of non-diabetic and diabetic donors could be demonstrated.
+Mediators which were involved in this reorganization of the actin cytoskeleton of keratinocytes were
+p38-MAP-kinase and PI3-kinase. Additionally, in keratinocytes of diabetic donors a slight activation of
+p38-MAPK by TE and the triterpene betulin could be observed. The contribution of p38-MAPK in the shape change
+of the actin cytoskeleton in fibroblasts was also investigated, but no impact could be detected. Further
+factors, which can exert an influence on the actin cytoskeleton, are the RhoGTPases RhoA, Rac1 and Cdc42. In
+keratinocytes from diabetic donors, an activation of all three mentioned RhoGTPases by TE and the triterpenes
+betulin and lupeol could be shown. Furthermore, in keratinocytes of non-diabetic and diabetic donors an
+influence on protein expression of several chemokines, cytokines, growth factors, adhesion molecules, soluble
+receptors and other factors involved in wound healing could be observed. The most pronounced induction after
+treatment with betulin was shown for the chemokines IL-8 and RANTES as well as the pro-inflammatory cytokine
+MIF. The theory discussed in literature, that betulin incorporates into the cell membrane and eliminates
+cholesterol, could not be confirmed. Therefore, the  ...
+
+---
+
+Synthese und Charakterisierung von Organometallverbindungen und -derivaten mit raumfüllenden Liganden :
+neuartige Tetrabenzo[a,c,g,i]fluorenyl- und Dicyclohexylamidometallkomplexe
+
+Es wurden metallorganische Komplexe mit den sterisch anspruchsvollen Ligandsystemen
+Tetrabenzo[a,c,g,i]fluorenyl (Tbf) und Dicyclohexylamid (NCy2) synthetisiert und untersucht.
+Tbf-Cobalt(I)-Komplexe mit zusätzlichem Cyclooctadien- oder Pentafulvenligand wurden im Hinblick auf
+katalytische Aktivität in  [2+2+2]-Cycloadditionsreaktionen zugänglich gemacht und hinreichend
+charakterisiert. Zusätzlich wurden das Cobaltocenanalogon Tbf2Co sowie Cobaltoceniumderivate mit Tbf-Liganden
+strukturell untersucht. Diverse Titankomplexe mit dem NCy2-Liganden wurden ausgehend von (Cy2N)TiCl3
+synthetisiert. Neben Amidotitanchloriden wurden korrespondierende Cyclopentadienyl- sowie Imidokomplexe
+erhalten. Exemplarisch methylierte Di- bzw. Triamidotitankomplexe stellen hervorragende Katalysatoren in der
+intramolekularen Hydroaminoalkylierung eines Alkens dar. Derivate des Tetrabenzo[a,c,g,i]fluorens wurden als
+Substrate für die Darstellung von wellenleitenden Nanoröhrchen durch Templatbenetzung zugänglich gemacht.
+<dt.>
+
+---
+
+Über den Mechanismus der Protonentranslokation des respiratorischen Komplex I
+
+Zusammenfassung: Die energiewandelnde NADH:Ubichinon Oxidoreduktase, auch respiratorischer Komplex I genannt,
+koppelt den Transfer von zwei Elektronen von NADH auf Ubichinon mit der Translokation von vier Protonen über
+die innere Mitochondrienmembran von Eukaryoten und die cytoplasmatische Membran von Prokaryoten. In
+Escherichia coli besteht der Komplex I aus 13 Untereinheiten, die mit NuoA-N bezeichnet werden. Der
+Elektronentransportweg von NADH über ein Flavinmononukleotid und eine Reihe von Eisen-Schwefel-Zentren auf
+Ubichinon ist gut verstanden, der Mechanismus der Kopplung von Elektronentransfer und Protonentranslokation
+ist jedoch weitgehend ungeklärt. Eine Beteiligung der membranständigen Untereinheiten NuoL, NuoM und NuoN an
+der Protonentranslokation erscheint aufgrund ihrer Homologie zu Kationen/Protonen-Antiportern wahrscheinlich.
+Es werden sowohl direkte, redoxgetriebene, als auch indirekte, konformationsgetriebene Kopplungsmechanismen
+diskutiert, sowie eine Mischung aus beiden Mechanismen.   Das zentrale Thema dieser Arbeit ist der Mechanismus
+der Protonentranslokation durch den E. coli Komplex I. Aus vorangegangenen Arbeiten unserer Gruppe war
+bekannt, dass eine Variante des Komplex I, in der die Untereinheit NuoL deletiert ist, eine im Vergleich zum
+Wildtyp halb so große Stöchiometrie von 2H+/2e- aufweist. Eine horizontale Helix, die Teil von NuoL ist und
+sich fast entlang des gesamten Membranarms erstreckt, wird als Kopplungselement diskutiert, das möglicherweise
+Konformationsänderungen von der Chinon-Bindestelle auf die Antiporter-Untereinheiten im Membranarm überträgt.
+Die Charakterisierung von Varianten mit verkürzter horizontaler Helix zeigte, dass bereits die Deletion der
+C-terminalen transmembranen Helix, mit der die horizontale Helix in der Membran verankert ist, zu der geringen
+Stöchiometrie führt. Das zeigt, dass dieser Teil der Untereinheit NuoL essentiell für ihre Funktion ist. Die
+Mutagenese konservierter Aminosäuren auf der horizontalen Helix ergab, dass das in den meisten Spezies
+konservierte Asp563 an der Translokation von einem Proton beteiligt ist, während die Mutation der nur in
+Prokaryoten konservierten Reste Asp542 und Asp546 keinen Einfluss auf die Stöchiometrie hatte. Um mögliche
+Konformationsänderungen der horizontalen Helix zu untersuchen, wurde ein Cystein-Scanning durchgeführt. Hierzu
+wurden 15 Positionen auf der Helix individuell gegen Cysteinreste ausgetauscht. Die Markierung ...
+
+Zusammenfassung: The energy-converting NADH:ubiquinone oxidoreductase, also known as respiratory complex I,
+couples the transfer of two electrons from NADH to ubiquinone with the translocation of four protons across
+the inner mitochondrial membrane in eukaryotes and the cytoplasmic membrane of prokaryotes. In Escherichia
+coli, complex I consists of 13 subunits named NuoA-N. The electron transfer pathway from NADH via a flavin
+mononucleotide and a chain of iron-sulfur clusters to ubiquinone is well understood. However, the coupling
+mechanism between electron transfer and proton translocation is unknown. It seems likely that subunits NuoL,
+NuoM and NuoN, which are part of the membrane arm of the complex, are involved in proton translocation since
+they are homologs of cation/proton antiporters. Direct, redox-driven and indirect, conformationally driven
+coupling mechanisms are discussed as well a mixture of both.  The main subject of this work is the mechanism
+of proton translocation by the E. coli respiratory complex I. Earlier work in our lab had shown that a complex
+I variant lacking subunit NuoL exhibits a halved stoichiometry of 2H+/2e- compared to the wild type. A
+horizontal helix, which is part of subunit NuoL and crosses almost the entire membrane arm, is discussed as
+coupling element, which might transmit conformational changes from the quinone binding site to the
+antiporter-like subunits in the membrane arm. The characterization of complex I variants with a truncated
+horizontal helix showed that the deletion of the C-terminal transmembranous (TM) helix, which is anchoring the
+horizontal helix in the membrane arm, leads to the same halved stoichiometry as the deletion of the entire
+subunit. This indicates that the C-terminal TM helix of subunit NuoL is essential for its function.
+Mutagenesis of conserved amino acid residues on the horizontal helix showed that Asp 563, which is conserved
+in most species, is involved in the translocation of one proton. However, mutation of residues Asp542 and
+Asp546, which are only conserved in prokaryotes, had no influence on proton/electron stoichiometry. Cysteine
+scanning was done in order to investigate possible conformational changes of the horizontal helix. 15 residues
+on the helix were individually replaced by cysteine. Labeling of the cysteine residues with a fluorescent
+marker and a spin probe for characterization by EPR spectroscopy revealed minor, local conformational changes.
+The implication of those results ...
+
+---
+
+Zur Chemie cyclopentadienylfreier Fulvenkomplexe des Titans : Synthesen und Reaktionen
+
+Im Rahmen der vorliegenden Arbeit wurden neue Bisfulventitankomplexe des Typs (C5H4=CR2)2Ti durch die Reaktion
+von TiCl4 x 2 THF mit Magnesium und Pentafulvenen (Molverhältnis 1:2:2) in THF synthetisiert. Die Reaktion mit
+Hydrogenchlorid führt in einer                            Additionsreaktion quantitativ zu einem einfach
+substituierten Titanocendichlorid (C5H4CHR2)2TiCl2. Die Umsetzung der Verbindung                            51
+mit Ketonen im Molverhältnis 1:2 führt zu einer doppelten Insertionreaktion. Hierbei reagiert das nukleophile
+Heteroatom des                            Insertionssubstrates mit dem elektrophilen Zentralmetall und der
+elektrophile Kohlenstoff mit dem nukleophilen Fulvenhenkelkohlenstoff unter der Ausbildung zweier
+funktionalisierter Sigma,Pi-Cyclopentadienylliganden. Versuche, ein Monofulventitandichlorid zu erhalten,
+waren nicht erfolgreich. Abfangreaktionen mit einfachen Elektrophilen wie Hydrogenchlorid
+belegen, daß sich bereits der Bisfulventitankomplex (C5H4=CR2)2Ti gebildet hat. So wird anstelle der Bildung
+des                            Monocyclopentadienyltitantrichlorids die Bildung des Titanocendichlorids
+(C5H4CHR2)2TiCl2 beobachtet. Untersuchungen zeigten, daß die bei der Umsetzung von TiCl4 x 2 THF, Magnesium
+und Pentafulvenen im Verhältnis 1:1:1 gebildeten Produkte mit                            Aluminiumalkylen
+katalytische Aktivität in der Polymerisation von Ethylen und Propylen zeigen. Hierbei ist die Gegenwart des in
+der                            Reaktion gebildeten Magnesiumchlorids essentiell. <dt.>
+
+This thesis presents the synthesis of new bisfulvene complexes of titanium (C5H4=CR2)2Ti                  by
+the reaction of TiCl4 x 2 THF with magnesium and pentafulvenes (molar ratio 1:2:2) in THF. Reaction with
+hydrogenchloride forms a monosubstituted titanocendichloride                  (C5H4CHR2)2TiCl2 in quantitative
+yield. The compound 51 reacts with ketones (molar ratio                  1:2) to give two functionalized
+cyclopentadienyl chelate ligands, in which the former fulvene ligand is now part of a metallacyclus. Attempts
+to get a monofulvenetitaniumdichloride have not been successful. Trapping reactions with simple electrophiles
+like hydrogenchloride confirm the formation of the bisfulvenetitanium complex (C5H4=CR2)2Ti. Instead of the
+monocyclopentadienyltitaniumtrichloride the titanocendichloride (C5H4CHR2)2TiCl2 is                  obtained.
+The system of TiCl4 x 2 THF, magnesium and pentafulvenes (molar ratio 1:1:1) and aluminium alkyles shows
+catalytic activity in the polymerisation of ethylen and propylen. The presence of formed magnesiumdichloride
+is essential. <engl.>
+
+---
+
+Thermische und photoinduzierte C-H-Funktionalisierung von Indol-Derivaten durch radikalische Cyclisierungs-
+und Additionsreaktionen
+
+Complex indole-containing carbon skeletons were built up by forming new C−C bonds by generating C-centered
+radicals. The generation can be carried out both thermally and photochemically, so that functionalized
+indoloquinolines were presented in radical cyclization reactions. Furthermore, a thermal and photoinduced
+radical addition of indoles with tert-butyl nitrite was developed in which, depending on the reaction
+conditions, the triazatruxene or, after methylene blue-sensitized photooxidation, 2-indolyl-3-oxime-3H-indoles
+were generated.<eng>
+
+Es wurden durch Knüpfung neuer C−C-Bindungen komplexe indolhaltige Kohlenstoffgerüste aufgebaut, indem
+C-zentrierte Radikale erzeugt wurden. Die Generierung kann sowohl thermisch als auch photochemisch erfolgen,
+sodass in radikalischen Cyclisierungsreaktionen funktionalisierte Indolochinoline dargestellt wurden.
+Weiterhin wurde eine thermische und photoinduzierte radikalische Addition von 1H-Indolen mit tert-Butylnitrit
+entwickelt, in der in Abhängigkeit der Reaktionsbedingungen das Triazatruxen oder nach
+Methylenblau-sensibilisierter Photooxidation 2-Indolyl-3-oxim-3H-indole generiert wurden.<ger>
+
+---
+
+Struktur und Eigenschaften übergangsmetallhaltiger Oxo-Arsenate(III) der Selten-Erd-Elemente
+
+Diese Arbeit befasst sich mit der Synthese und Charakterisierung neuer Verbindungen der Selten-Erd-Elemente.
+Im Vordergrund steht die Entwicklung neuer Synthesestrategien zum Aufbau von Verbindungen, in denen
+Selten-Erd-Elemente und Übergangsmetalle mit Oxo-Arsenat(III)-Anionen zu komplexen Netzwerken verknüpft
+werden. Diese Liganden sind in besonderem Maße zum Aufbau solcher Aggregate geeignet, weil sie sich durch eine
+große Zahl unterschiedlicher Koordinations- und Verknüpfungsmodi auszeichnen und so vielfältige Variationen im
+Aufbau der Festkörper und damit in der Anordnung von Selten-Erd- und Übergangsmetallionen zueinander
+ermöglichen. Durch festkörperchemische Umsetzung von den Oxiden der Selten-Erd-Elemente mit
+Übergangsmetall-Oxiden bzw. -Chloriden und Arsen(III)oxid wurden die Verbindungen SE5(AsO3)4Cl3 (SE = La, Pr,
+Nd), SE3(AsO3)(As2O5)Cl2 (SE = Sm, Eu, Gd), SE2Zn(AsO3)(As2O5)Cl (SE = Dy, Ho, Er, Yb) und
+SE2Fe(AsO3)(As2O3)Cl (SE = Sm, Gd) erhalten. Erste Untersuchungen zu den thermischen und spektroskopischen
+Eigenschaften dieser Verbindungen so wie die pulverdiffraktometrischen Untersuchungen werden vorgestellt.
+<dt.>
+
+This work deals with the synthesis and characterisation of new rare earth element compounds. The main aim is
+the development of preparative routes for the syntheses of compounds in which the rare earth elements and
+transition metals are connected to form complex networks via oxo-arsenate(III) anions. These ligands are
+especially suitable to assemble such aggregates because of their numerous different coordination and
+connection modes. This allows a wide variety of the solid state structures and the constitution of the rare
+earth and transition metal ions to each other, which is of great importance for the investigations of the
+interactions in the structures. The compounds SE5(AsO3)4Cl3 (SE = La, Pr, Nd), SE3(AsO3)(As2O5)Cl2 (SE = Sm Eu
+Gd), SE2Zn(AsO3)(As2O5)Cl (SE = Dy, Ho, Er, Yb) and SE2Fe(AsO3)Cl (SE = Sm, Gd) were obtained via the solid
+state reaction of rare earth oxides with transition metal oxides or chlorides and arsenic(III)oxide. First
+results of the investigations of the thermal and spectroscopic properties of these compounds as well as powder
+diffractometric characterisations are presented. <engl.>
+
+---
+
+Rod-Coil-Multiblock-Polymere mit monodispersen Oligo(p-phenylenethinylen)en als Rodblock : Synthese und
+Charakterisierung
+
+Bisher wurden OPEs vorwiegend für eine spezielle Anwendung z. B. in der Sensorik oder als Modellsubstanzen für
+PPEs dargestellt. Eine weitere Funktionalisierung, um größere Moleküle aufzubauen, um diese in organischen
+Solarzellen zu testen, wurde selten unternommen. Eine Verknüpfung der starren Oligomere mit flexiblen
+nichtkonjugierten Ketten führt zu Rod-Coil-Polymeren. Neben den Diblock- und Triblock-Polymern (ein Rod und
+ein Coil bzw. zwei Rods/Coils und ein Coil/Rod) gibt es die Multiblock-Polymere, bei denen die starren
+OPE-Rods untereinander durch flexible Ketten verbunden sind. Diese Polymere weisen die definierten
+optoelektronischen Eigenschaften des eingebauten Oligomers auf. Zusätzlich bewirkt die Verknüpfung zum Polymer
+typische Polymereigenschaften wie z. B. Filmbildung. Prinzipiell kann bei Rod-Coil-Multiblock-Polymeren eine
+Organisation der konjugierten Blöcke auftreten, die zu neuen, spezifischen Eigenschaften führen kann.
+
+---
+
+An extended Kalman filter based control system for maximizing the biomass production in E.coli K1 cultivations
+
+Extended Kalman filter, fed-batch cultivations, flow injection analysis, polysialic acid, feed
+forward/feedback control, carbon balance, Monod model, exponential feeding. - Erweiterter Kalman-Filter,
+Fed-Batch-Kultivierungen, Fließ-Injektions-Analyse, Polysialinsäure, Kohlenstoffbilanz, Monod-Modell,
+exponentielles Feeding
+
+---
+
+Untersuchungen zur Wechselwirkung zwischen Oberflächenmorphologie und Elektrochemie bei polykristallinen
+Goldelektroden
+
+Polycrystalline gold has been electrochemically characterized since the end of the 19th century and has been
+regularly used as a working electrode in electrochemical analysis since the beginning of the 20th century.
+Erroneously, it was often believed that mechanical grinding and polishing would reveal the individual single
+crystal planes of the polycrystalline material and that their statistically weighted electrochemical behaviour
+could be reproducibly mapped. With occurence of new and improved methods for producing high-quality
+monocrystalline surfaces in parallel with development and distribution of powerful techniques for surface
+analysis, gold research from the mid-20th century onwards concentrated on the characterisation of the single
+crystal surfaces, but without using the newly gained knowledge for the interpretation of the polycrystalline
+material. Therefore, the subject of this work was to combine electrochemical methods (linear and cyclic
+voltammetry) with modern surface analysis (X-ray diffraction, electrochemical underpotential deposition of
+lead ions) and imaging techniques (AFM, STM, SEM) to characterize differently pretreated polycrystalline gold
+electrodes. Moreover, the electrochemical behaviour of these electrodes should be interpreted based on to date
+knowledge of the behaviour of the single crystal planes. Most of the results obtained were published in those
+three publications that form the main part of this dissertation. At first, a temporary activation ...
+
+Cyclovoltammetrie, Elektrochemie, Gold, Kristallfläche, Polykristall, Rasterelektronenmikroskop, Pb-UPD
+
+---
+
+Totalsynthese von Nosiheptid
+
+Im Rahmen dieser Dissertation wurde eine Totalsynthese des bismakrocyclischen Naturstoffs Nosiheptid aus der
+Klasse der Thiopeptidantibiotika entwickelt. Diese gelang durch den Aufbau einer voll funktionalisierten
+linearen Vorstufe und konsekutive Makrocyclisierungen. Schlüsselmerkmale waren eine kritische
+Makrothiolactonisierung und eine milde Entschützungsstrategie für den 3 Hydroxypyridin-Kern. Der synthetische
+Naturstoff war mit isoliertem authentischem Material im Hinblick auf spektroskopische Daten und
+antimikrobielle Aktivität identisch. Die Totalsynthese von Nosiheptid eröffnet erstmals einen Zugang zur
+ungewöhnlichen Klasse e der Thiopeptidgerüste. Die Modularität der entwickelten Syntheseroute erlaubt den
+Austausch von Bausteinen und kann somit zur Darstellung neuartiger, bisher nicht zugänglicher Derivate dienen.
+Des Weiteren konnte in mechanistischen Untersuchungen gezeigt werden, dass eine Selektivität bei der
+Verseifung von 3-Hydroxypicolinsäureestern wahrscheinlich durch die aktive Beteiligung der benachbarten
+phenolischen OH-Gruppe ermöglicht wird. Mit der Anwendung dieses Prinzips der intramolekularen Katalyse
+konnten auch die regioselektive Umesterung und Aminolyse von 3-Hydroxypicolinsäureestern unter milden
+Bedingungen demonstriert werden. Diese Transformationen eröffnen neue Möglichkeiten sowohl für die Synthese
+polyfunktionaler Moleküle in der Medizinalchemie als auch für den Zugang zu neuartigen Pyridin-Donor-Liganden.
+
+---
+
+Diaminoterephthalsäurederivate : Fluoreszenzfarbstoffe für die Life Sciences und Materials Science
+
+This thesis consists of three parts. In course of the first part of this thesis different diaminoterephthalic
+acid derivatives were synthesized. The second topic includes the preparation of a monoprenylated model
+compound as well as the synthesis of a farnesylated diphosphate with a terminal alkyne. The latter one was
+supposed to be used in biological studies to be bound to a protein. Within the third part different
+farnesylated cysteine derivatives were synthesized, which also should have been used in biological studies to
+examine different protein functions.
+
+Die Arbeit besteht aus drei Teilen. Im ersten Teil wurden verschiedene Diaminoterephthalsäurederivate
+synthetisiert. Ein zweites Themengebiet umfasste die Synthese einer monoprenylierten Modellverbindung sowie
+die Darstellung eines farnesylierten Diphosphats mit einer endständigen Alkinylgruppe, welches in biologischen
+Studien zur Anbindung eines Proteins dienen sollte. Im dritten Teil wurden verschiedene S-farnesylierten
+Cysteinderivate synthetisiert, die ebenfalls in biologischen Studien zur Untersuchung verschiedener
+Proteinfunktionen genutzt werden sollte.
+
+---
+
+Hydrogen generation from renewable resources
+
+Hydrogen generation from 2-propanol and formic acid and its direct use in fuel cells was studied. 2-propanol
+was dehydrogenated with ruthenium diamine catalysts. Formic acid was decomposed selectively to hydrogen and
+carbon dioxide in a system containing ruthenium catalysts and formic acid amine adducts. The best catalyst
+activity and productivity were achieved with in situ generated ruthenium phosphine catalysts, e.g.
+[RuCl2(benzene)]2 / dppe (TOF = 900 h-1, TON = 260.000). The influence of irradiation with visible light has
+been described for the ruthenium phosphine catalysts.
