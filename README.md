@@ -39,7 +39,7 @@ https://llm.radar-service.eu/ollama/api/create \
 -d @-
 
 # Problems
-I complained about not finding Institutions.
+I complained about not finding Institutions. (Also applies to Authors)
 Answer:
 Die drei Institutionen fehlen, weil der Prompt sie gar nicht vorsieht und an einer Stelle sogar ausschließt. Ich habe nichts geändert.
 
