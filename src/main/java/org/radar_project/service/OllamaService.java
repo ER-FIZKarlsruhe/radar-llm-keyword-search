@@ -3,6 +3,8 @@ package org.radar_project.service;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.radar_project.config.OllamaProperties;
 import org.radar_project.model.ExtractionResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ import java.util.Map;
  */
 @Service
 public class OllamaService {
+
+    private static final Logger log = LoggerFactory.getLogger(OllamaService.class);
 
     /**
      * JSON schema passed as {@code format} so that Ollama constrains the model output.
@@ -59,6 +63,7 @@ public class OllamaService {
 
     /**
      * Extracts keywords from the given text, limited to {@code radar.ollama.max-keywords} entries.
+     * Texts longer than {@code radar.ollama.max-text-length} characters are truncated.
      *
      * @param text  the text to extract keywords from
      * @param model the model to use; must be one of {@code radar.ollama.models}
@@ -67,7 +72,7 @@ public class OllamaService {
      */
     public ExtractionResult extract(String text, String model) {
         requireSelectable(model);
-        String content = chat(text, model);
+        String content = chat(truncate(text, model), model);
         ExtractionResult result;
         try {
             result = jsonMapper.readValue(content, ExtractionResult.class);
@@ -79,6 +84,20 @@ public class OllamaService {
                 .limit(properties.maxKeywords())
                 .toList();
         return new ExtractionResult(result.language(), keywords);
+    }
+
+    /**
+     * Cuts the text to {@code radar.ollama.max-text-length} characters. Otherwise Ollama would
+     * silently drop the beginning of the prompt, including the system prompt, once it exceeds num_ctx.
+     */
+    private String truncate(String text, String model) {
+        int maxLength = properties.maxTextLength();
+        if (text.length() <= maxLength) {
+            return text;
+        }
+        int end = Character.isHighSurrogate(text.charAt(maxLength - 1)) ? maxLength - 1 : maxLength;
+        log.warn("Text for model {} truncated from {} to {} characters", model, text.length(), end);
+        return text.substring(0, end);
     }
 
     /** Only configured models may be used, so that clients cannot make Ollama load arbitrary models. */

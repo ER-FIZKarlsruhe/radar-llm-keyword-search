@@ -30,7 +30,7 @@ from: "qwen3:8b",
 system: $prompt,
 parameters: {
 temperature: 0,
-num_ctx: 16384
+num_ctx: 6000
 },
 stream: false
 }' | curl -X POST \

@@ -14,7 +14,8 @@ class OllamaPropertiesTest {
             .withPropertyValues(
                     "radar.ollama.base-url=https://ollama.test/ollama",
                     "radar.ollama.connect-timeout=1s",
-                    "radar.ollama.read-timeout=1s");
+                    "radar.ollama.read-timeout=1s",
+                    "radar.ollama.max-text-length=10000");
 
     @Test
     void bindsPositiveMaxKeywords() {
@@ -56,6 +57,19 @@ class OllamaPropertiesTest {
     @Test
     void rejectsNegativeMaxKeywords() {
         contextRunner.withPropertyValues("radar.ollama.max-keywords=-1", "radar.ollama.models=keyword-extractor")
+                .run(context -> assertThat(context).hasFailed());
+    }
+
+    @Test
+    void bindsMaxTextLength() {
+        contextRunner.withPropertyValues("radar.ollama.max-keywords=10", "radar.ollama.models=keyword-extractor")
+                .run(context -> assertThat(context.getBean(OllamaProperties.class).maxTextLength()).isEqualTo(10000));
+    }
+
+    @Test
+    void rejectsZeroMaxTextLength() {
+        contextRunner.withPropertyValues("radar.ollama.max-keywords=10", "radar.ollama.models=keyword-extractor",
+                        "radar.ollama.max-text-length=0")
                 .run(context -> assertThat(context).hasFailed());
     }
 

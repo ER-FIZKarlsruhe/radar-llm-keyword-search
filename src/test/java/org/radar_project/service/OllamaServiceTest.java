@@ -31,16 +31,59 @@ class OllamaServiceTest {
 
     @BeforeEach
     void setUp() {
-        createService(10);
+        createService(10, 10_000);
     }
 
     private void createService(int maxKeywords) {
+        createService(maxKeywords, 10_000);
+    }
+
+    private void createService(int maxKeywords, int maxTextLength) {
         RestClient.Builder builder = RestClient.builder().baseUrl("https://ollama.test/ollama");
         server = MockRestServiceServer.bindTo(builder).build();
         ollamaService = new OllamaService(builder.build(),
                 new OllamaProperties("https://ollama.test/ollama", List.of("keyword-extractor", "keyword-extractor2"),
-                        Duration.ofSeconds(1), Duration.ofSeconds(1), maxKeywords),
+                        Duration.ofSeconds(1), Duration.ofSeconds(1), maxKeywords, maxTextLength),
                 JsonMapper.builder().build());
+    }
+
+    @Test
+    void truncatesTextLongerThanMaxTextLength() {
+        createService(10, 5);
+        server.expect(requestTo("https://ollama.test/ollama/api/chat"))
+                .andExpect(jsonPath("$.messages[0].content").value("Zeoli"))
+                .andRespond(chatResponse("""
+                        {"language": "de", "keywords": ["Zeolith"]}"""));
+
+        ollamaService.extract("Zeolithe", "keyword-extractor");
+
+        server.verify();
+    }
+
+    @Test
+    void keepsTextOfExactlyMaxTextLength() {
+        createService(10, 8);
+        server.expect(requestTo("https://ollama.test/ollama/api/chat"))
+                .andExpect(jsonPath("$.messages[0].content").value("Zeolithe"))
+                .andRespond(chatResponse("""
+                        {"language": "de", "keywords": ["Zeolith"]}"""));
+
+        ollamaService.extract("Zeolithe", "keyword-extractor");
+
+        server.verify();
+    }
+
+    @Test
+    void doesNotSplitSurrogatePairWhenTruncating() {
+        createService(10, 2);
+        server.expect(requestTo("https://ollama.test/ollama/api/chat"))
+                .andExpect(jsonPath("$.messages[0].content").value("a"))
+                .andRespond(chatResponse("""
+                        {"language": "de", "keywords": ["a"]}"""));
+
+        ollamaService.extract("a\uD835\uDC00b", "keyword-extractor");
+
+        server.verify();
     }
 
     @Test
